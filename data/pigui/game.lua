@@ -8,6 +8,7 @@ local lc = Lang.GetResource("core");
 local lui = Lang.GetResource("ui-core");
 local utils = import("utils")
 local Event = import("Event")
+local SerialComms = import("SerialComms")
 
 -- cache ui
 local pionillium = ui.fonts.pionillium
@@ -266,6 +267,8 @@ local function displayReticulePitchHorizonCompass()
 
 		uiPos = ui.pointOnClock(center, reticuleCircleRadius + 15, 1.3)
 		ui.addStyledText(uiPos, ui.anchor.left, ui.anchor.bottom, math.floor(heading_degrees + 0.5) .. "°", colors.reticuleCircle, pionillium.small, lui.HUD_CURRENT_HEADING)
+	    heading_str = string.format("%03d", math.floor(heading_degrees + 0.5))
+		SerialComms.WriteData(heading_str)
 
 		uiPos = ui.pointOnClock(center, reticuleCircleRadius + 5, 6)
 		ui.addStyledText(uiPos, ui.anchor.center, ui.anchor.top, math.floor(roll_degrees + 0.5) .. "°", colors.reticuleCircle, pionillium.small, lui.HUD_CURRENT_ROLL)

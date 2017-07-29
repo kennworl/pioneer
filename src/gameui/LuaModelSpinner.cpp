@@ -1,9 +1,17 @@
-// Copyright © 2008-2017 Pioneer Developers. See AUTHORS.txt for details
+﻿// Copyright © 2008-2017 Pioneer Developers. See AUTHORS.txt for details
 // Licensed under the terms of the GPL v3. See licenses/GPL-3.txt
 
 #include "ModelSpinner.h"
 #include "LuaObject.h"
 #include "Pi.h"
+
+#if defined(_MSC_VER) || defined(__MINGW32__)
+// RegisterClassA and RegisterClassW are defined as macros in WinUser.h
+#ifdef RegisterClass
+#undef RegisterClass
+#endif
+#endif
+
 
 namespace GameUI {
 

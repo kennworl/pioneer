@@ -1,4 +1,4 @@
-// Copyright © 2008-2017 Pioneer Developers. See AUTHORS.txt for details
+﻿// Copyright © 2008-2017 Pioneer Developers. See AUTHORS.txt for details
 // Licensed under the terms of the GPL v3. See licenses/GPL-3.txt
 
 #include "LuaObject.h"
@@ -8,6 +8,13 @@
 #include "galaxy/Galaxy.h"
 #include "galaxy/StarSystem.h"
 #include "Game.h"
+
+#if defined(_MSC_VER) || defined(__MINGW32__)
+// RegisterClassA and RegisterClassW are defined as macros in WinUser.h
+#ifdef RegisterClass
+#undef RegisterClass
+#endif
+#endif
 
 /*
  * Class: SystemBody

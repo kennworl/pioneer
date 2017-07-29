@@ -1,4 +1,4 @@
-// Copyright © 2008-2017 Pioneer Developers. See AUTHORS.txt for details
+﻿// Copyright © 2008-2017 Pioneer Developers. See AUTHORS.txt for details
 // Licensed under the terms of the GPL v3. See licenses/GPL-3.txt
 
 #ifndef _PI_H
@@ -11,6 +11,7 @@
 #include "GameConfig.h"
 #include "LuaSerializer.h"
 #include "LuaTimer.h"
+#include "LuaSerialComms.h"
 #include "CargoBody.h"
 #include "Space.h"
 #include "JobQueue.h"
@@ -18,6 +19,7 @@
 #include <map>
 #include <string>
 #include <vector>
+#include <SerialClass.h>
 
 class Intro;
 class LuaConsole;
@@ -170,6 +172,8 @@ public:
 	static ModelCache *modelCache;
 	static Intro *intro;
 	static SDLGraphics *sdl;
+
+	static Serial *SP;
 
 	static Game *game;
 

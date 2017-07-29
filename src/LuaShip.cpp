@@ -1,4 +1,4 @@
-// Copyright © 2008-2017 Pioneer Developers. See AUTHORS.txt for details
+﻿// Copyright © 2008-2017 Pioneer Developers. See AUTHORS.txt for details
 // Licensed under the terms of the GPL v3. See licenses/GPL-3.txt
 
 #include "LuaObject.h"
@@ -19,6 +19,10 @@
 #include "HyperspaceCloud.h"
 #include "Game.h"
 
+
+#ifdef RegisterClass
+#undef RegisterClass
+#endif
 /*
  * Class: Ship
  *

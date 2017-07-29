@@ -1,4 +1,4 @@
-// Copyright © 2008-2017 Pioneer Developers. See AUTHORS.txt for details
+﻿// Copyright © 2008-2017 Pioneer Developers. See AUTHORS.txt for details
 // Licensed under the terms of the GPL v3. See licenses/GPL-3.txt
 
 #include "Pi.h"
@@ -32,6 +32,7 @@
 #include "LuaPiGui.h"
 #include "LuaRef.h"
 #include "LuaServerAgent.h"
+#include "LuaSerialComms.h"
 #include "LuaShipDef.h"
 #include "LuaSpace.h"
 #include "LuaTimer.h"
@@ -85,6 +86,8 @@
 #include <algorithm>
 #include <sstream>
 
+#include "SerialClass.h"	// Library described above
+
 #ifdef PROFILE_LUA_TIME
 #include <time.h>
 #endif
@@ -124,6 +127,7 @@ Player *Pi::player;
 View *Pi::currentView;
 TransferPlanner *Pi::planner;
 LuaConsole *Pi::luaConsole;
+Serial *Pi::SP;
 Game *Pi::game;
 Random Pi::rng;
 float Pi::frameTime;
@@ -299,6 +303,7 @@ static void LuaInit()
 #ifdef ENABLE_SERVER_AGENT
 	LuaServerAgent::Register();
 #endif
+	LuaSerialComms::Register();
 	LuaGame::Register();
 	LuaComms::Register();
 	LuaFormat::Register();
@@ -326,6 +331,7 @@ static void LuaInit()
 	pi_lua_dofile_recursive(l, "modules");
 
 	Pi::luaNameGen = new LuaNameGen(Lua::manager);
+
 }
 
 static void LuaUninit() {
@@ -333,6 +339,9 @@ static void LuaUninit() {
 
 	delete Pi::luaSerializer;
 	delete Pi::luaTimer;
+
+	// kennworl This will clean up the COM3 connection object
+	delete Pi::SP;
 
 	Lua::Uninit();
 }
@@ -448,6 +457,10 @@ void Pi::Init(const std::map<std::string,std::string> &options, bool no_gui)
 		Output("ver %s but could not detect platform name.\n\n", version.c_str());
 
 	Output("%s\n", OS::GetOSInfoString().c_str());
+
+	// kennworl This creates the serial connection to the Arduino via the standard COM3 serial port (via the USB)
+	Pi::SP = new Serial("COM3");
+	//if (SP->IsConnected()) SP->WriteData("555", 3);
 
 	ModManager::Init();
 

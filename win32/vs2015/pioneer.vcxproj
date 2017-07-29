@@ -69,7 +69,7 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>false</WholeProgramOptimization>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>NotSet</CharacterSet>
     <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
@@ -281,6 +281,7 @@
       <OmitFramePointers>true</OmitFramePointers>
       <MinimalRebuild>false</MinimalRebuild>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
     </ClCompile>
     <PostBuildEvent>
       <Command>xcopy "..\..\..\pioneer-thirdparty\win32\bin\x86\vs2015\*.dll" "$(TargetDir)\*.dll" /Y /C</Command>
@@ -306,6 +307,7 @@
       <MinimalRebuild>false</MinimalRebuild>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
+      <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
     </ClCompile>
     <PostBuildEvent>
       <Command>xcopy "..\..\..\pioneer-thirdparty\win32\bin\x64\vs2015\*.dll" "$(TargetDir)\*.dll" /Y /C</Command>
@@ -434,6 +436,7 @@
     <ClCompile Include="..\..\src\LuaPropertiedObject.cpp" />
     <ClCompile Include="..\..\src\LuaRand.cpp" />
     <ClCompile Include="..\..\src\LuaRef.cpp" />
+    <ClCompile Include="..\..\src\LuaSerialComms.cpp" />
     <ClCompile Include="..\..\src\LuaSerializer.cpp" />
     <ClCompile Include="..\..\src\LuaServerAgent.cpp" />
     <ClCompile Include="..\..\src\LuaShip.cpp" />
@@ -492,6 +495,7 @@
     <ClCompile Include="..\..\src\SDLWrappers.cpp" />
     <ClCompile Include="..\..\src\SectorView.cpp" />
     <ClCompile Include="..\..\src\Sensors.cpp" />
+    <ClCompile Include="..\..\src\SerialClass.cpp" />
     <ClCompile Include="..\..\src\Serializer.cpp" />
     <ClCompile Include="..\..\src\ServerAgent.cpp" />
     <ClCompile Include="..\..\src\Sfx.cpp" />
@@ -601,6 +605,7 @@
     <ClInclude Include="..\..\src\LuaPiGui.h" />
     <ClInclude Include="..\..\src\LuaPushPull.h" />
     <ClInclude Include="..\..\src\LuaRef.h" />
+    <ClInclude Include="..\..\src\LuaSerialComms.h" />
     <ClInclude Include="..\..\src\LuaSerializer.h" />
     <ClInclude Include="..\..\src\LuaServerAgent.h" />
     <ClInclude Include="..\..\src\LuaShipDef.h" />
@@ -644,6 +649,7 @@
     <ClInclude Include="..\..\src\SDLWrappers.h" />
     <ClInclude Include="..\..\src\SectorView.h" />
     <ClInclude Include="..\..\src\Sensors.h" />
+    <ClInclude Include="..\..\src\SerialClass.h" />
     <ClInclude Include="..\..\src\Serializer.h" />
     <ClInclude Include="..\..\src\ServerAgent.h" />
     <ClInclude Include="..\..\src\Sfx.h" />

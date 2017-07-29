@@ -462,6 +462,8 @@
     <ClCompile Include="..\..\contrib\imgui\examples\sdl_opengl2_example\imgui_impl_sdl.cpp">
       <Filter>src\imgui</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\SerialClass.cpp" />
+    <ClCompile Include="..\..\src\LuaSerialComms.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Aabb.h">
@@ -929,6 +931,8 @@
     <ClInclude Include="..\..\contrib\imgui\examples\sdl_opengl2_example\imgui_impl_sdl.h">
       <Filter>src\imgui</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\SerialClass.h" />
+    <ClInclude Include="..\..\src\LuaSerialComms.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\..\src\win32\pioneer.rc">
