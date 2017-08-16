@@ -174,6 +174,9 @@ public:
 	static SDLGraphics *sdl;
 
 	static Serial *SP;
+//	static bool landingGearButtonReleasedEvent;
+//	static bool isLandingGearButtonPressed;
+
 
 	static Game *game;
 
@@ -184,6 +187,13 @@ public:
 	static JobQueue *GetSyncJobQueue() { return syncJobQueue.get();}
 
 	static bool DrawGUI;
+
+	static bool isUnhandledLandingGearButtonReleased();	
+	static bool isUnhandledLevelPitchButtonReleased();
+	static bool isPitchUp();
+	static bool isPitchDown();
+	static bool isYawLeft();
+	static bool isYawRight();
 
 private:
 	static void HandleEvents();
@@ -241,6 +251,9 @@ private:
 
 	static bool isRecordingVideo;
 	static FILE *ffmpegFile;
+
+	static void ParseSerialInput(char * buffer, int buflen);
+
 };
 
 #endif /* _PI_H */

@@ -1,4 +1,4 @@
-// Copyright © 2008-2017 Pioneer Developers. See AUTHORS.txt for details
+﻿// Copyright © 2008-2017 Pioneer Developers. See AUTHORS.txt for details
 // Licensed under the terms of the GPL v3. See licenses/GPL-3.txt
 
 #include "ShipController.h"
@@ -285,10 +285,10 @@ void PlayerShipController::PollControls(const float timeStep, const bool force_r
 				m_ship->SetGunState(Pi::game->GetWorldView()->GetActiveWeapon(), 1);
 		}
 
-		if (KeyBindings::yawLeft.IsActive()) wantAngVel.y += 1.0;
-		if (KeyBindings::yawRight.IsActive()) wantAngVel.y += -1.0;
-		if (KeyBindings::pitchDown.IsActive()) wantAngVel.x += -1.0;
-		if (KeyBindings::pitchUp.IsActive()) wantAngVel.x += 1.0;
+		if (KeyBindings::yawLeft.IsActive() || Pi::isYawLeft()) wantAngVel.y += 1.0;
+		if (KeyBindings::yawRight.IsActive() || Pi::isYawRight()) wantAngVel.y += -1.0;
+		if (KeyBindings::pitchDown.IsActive() || Pi::isPitchDown()) wantAngVel.x += -1.0;
+		if (KeyBindings::pitchUp.IsActive() || Pi::isPitchUp()) wantAngVel.x += 1.0;
 		if (KeyBindings::rollLeft.IsActive()) wantAngVel.z += 1.0;
 		if (KeyBindings::rollRight.IsActive()) wantAngVel.z -= 1.0;
 		if (KeyBindings::killRot.IsActive()) SetFlightControlState(CONTROL_FIXHEADING_KILLROT);
@@ -336,7 +336,11 @@ bool PlayerShipController::IsAnyAngularThrusterKeyDown()
 		KeyBindings::yawLeft.IsActive()   ||
 		KeyBindings::yawRight.IsActive()  ||
 		KeyBindings::rollLeft.IsActive()  ||
-		KeyBindings::rollRight.IsActive()
+		KeyBindings::rollRight.IsActive() ||
+		Pi::isYawLeft()                   ||
+		Pi::isYawRight()                  ||
+		Pi::isPitchUp()                   ||
+		Pi::isPitchDown()
 	);
 }
 

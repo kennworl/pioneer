@@ -127,7 +127,17 @@ Player *Pi::player;
 View *Pi::currentView;
 TransferPlanner *Pi::planner;
 LuaConsole *Pi::luaConsole;
+
 Serial *Pi::SP;
+bool landingGearButtonPressed = false;
+bool landingGearButtonReleasedEvent = false;
+bool pitchUp = false;
+bool pitchDown = false;
+bool yawLeft = false;
+bool yawRight = false;
+bool levelPitchButtonPressed = false;
+bool levelPitchButtonReleasedEvent = false;
+
 Game *Pi::game;
 Random Pi::rng;
 float Pi::frameTime;
@@ -1486,6 +1496,25 @@ void Pi::MainLoop()
 		// detected. Gui::Draw wipes memory of label positions.
 		Pi::HandleEvents();
 
+		// We need to check the COM3 Serial port for messages from Arduino
+		if (!(!SP || !SP->IsConnected())) {                                    // If we have a connected SP 
+			int availableData = SP->CheckData();                               // check if we have data to read
+			if (availableData > 0) {                                           // if we have data to read
+				char *serialBuffer = new char[availableData+100];              // allocate a buffer (and make it a little bigger than necessary in case we have read something prematurely)
+				int readData = SP->ReadData(serialBuffer, availableData);      // read into the buffer from the SP
+				if (readData > 0) {                                            // if we actually read something
+					while (serialBuffer[readData - 1] != '~') {                // check that we have a complete set of commands (we may have chopped off some at the end) No command is more than 100 chars long.
+						if (readData < availableData + 100) {
+							readData += SP->ReadData(&(serialBuffer[readData]), 1);  // char by char, get to the end of the current command
+						}
+					}
+					ParseSerialInput(serialBuffer, readData);                  // parse it
+				}
+				delete [] serialBuffer;                                        // delete the buffer
+				serialBuffer = nullptr;                                        // null out the pointer
+			}
+		}
+
 #ifdef REMOTE_LUA_REPL
 		Pi::luaConsole->HandleTCPDebugConnections();
 #endif
@@ -1653,6 +1682,85 @@ void Pi::MainLoop()
 #endif
 	}
 }
+
+void Pi::ParseSerialInput(char* buffer, int buflen) {
+	if (buflen == 0) return;
+	int counter = 0;
+	bool loopFinished = false;
+	while (!loopFinished) {
+		if ((buflen - counter) > 4 && buffer[counter] == 'l' && buffer[counter + 1] == 'g' && buffer[counter + 2] == 'b' && buffer[counter + 4] == '~') {
+			// we have a landing gear input
+			if (buffer[counter + 3] == 'u') {               // if the button is released
+				if (landingGearButtonPressed) {
+					landingGearButtonReleasedEvent = true;
+				}
+				landingGearButtonPressed = false;
+			}
+			else landingGearButtonPressed = true;        // else it is pressed
+			counter += 5;
+		}
+		else if ((buflen - counter) > 4 && buffer[counter] == 'j' && buffer[counter + 1] == '1' && buffer[counter + 4] == '~') {
+			// we have a joystick 1 control input
+			if (buffer[counter + 2] == 'p' && buffer[counter + 3] == 'u') {               // if joystick1 is pushed up (Pitch up)
+				pitchUp = true;
+				pitchDown = false;
+			}
+			else if (buffer[counter + 2] == 'p' && buffer[counter + 3] == 'd') {               // if joystick1 is pushed down (Pitch down)
+					pitchUp = false;
+					pitchDown = true;
+			}
+			else if (buffer[counter + 2] == 'p' && buffer[counter + 3] == 'n') {               // if joystick1 is not up or down (Pitch neutral)
+				pitchUp = false;
+				pitchDown = false;
+			}
+			else if (buffer[counter + 2] == 'y' && buffer[counter + 3] == 'l') {               // if joystick1 is pushed left (Yaw left)
+				yawLeft = true;
+				yawRight = false;
+			}
+			else if (buffer[counter + 2] == 'y' && buffer[counter + 3] == 'r') {               // if joystick1 is pushed left (Yaw left)
+				yawLeft = false;
+				yawRight = true;
+			}
+			else if (buffer[counter + 2] == 'y' && buffer[counter + 3] == 'n') {               // if joystick1 is not left (Yaw neutral)
+				yawLeft = false;
+				yawRight = false;
+			}
+			else if (buffer[counter + 2] == 'b' && buffer[counter + 3] == 'd') {               // if joystick1 button pressed
+				levelPitchButtonPressed = true; 
+			}
+			else if (buffer[counter + 2] == 'b' && buffer[counter + 3] == 'u') {               // if joystick1 is not pressed
+				if (levelPitchButtonPressed) {
+					levelPitchButtonReleasedEvent = true;
+				}
+				levelPitchButtonPressed = false;
+			}
+			counter += 5;
+		}
+		if ((buflen == counter)) loopFinished = true;
+	}
+}
+
+bool Pi::isUnhandledLandingGearButtonReleased() {
+	if (landingGearButtonReleasedEvent) {
+		landingGearButtonReleasedEvent = false;
+		return true;
+	}
+	return false;
+}
+
+bool Pi::isUnhandledLevelPitchButtonReleased() {
+	if (levelPitchButtonReleasedEvent) {
+		levelPitchButtonReleasedEvent = false;
+		return true;
+	}
+	return false;
+}
+
+bool Pi::isPitchUp() { return pitchUp; }
+bool Pi::isPitchDown() { return pitchDown; }
+bool Pi::isYawLeft() { return yawLeft; }
+bool Pi::isYawRight() { return yawRight; }
+
 
 void Pi::InitJoysticks() {
 	int joy_count = SDL_NumJoysticks();

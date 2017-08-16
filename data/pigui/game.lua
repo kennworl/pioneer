@@ -267,7 +267,7 @@ local function displayReticulePitchHorizonCompass()
 
 		uiPos = ui.pointOnClock(center, reticuleCircleRadius + 15, 1.3)
 		ui.addStyledText(uiPos, ui.anchor.left, ui.anchor.bottom, math.floor(heading_degrees + 0.5) .. "°", colors.reticuleCircle, pionillium.small, lui.HUD_CURRENT_HEADING)
-	    heading_str = string.format("%03d", math.floor(heading_degrees + 0.5))
+	    heading_str = string.format("hd%03d~", math.floor(heading_degrees + 0.5))
 		SerialComms.WriteData(heading_str)
 
 		uiPos = ui.pointOnClock(center, reticuleCircleRadius + 5, 6)

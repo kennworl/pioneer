@@ -82,6 +82,13 @@ Serial::~Serial()
 	}
 }
 
+int Serial::CheckData()
+{
+	//This will simply return the number of bytes available to read
+	ClearCommError(this->hSerial, &this->errors, &this->status);
+	return this->status.cbInQue;
+}
+
 int Serial::ReadData(char *buffer, unsigned int nbChar)
 {
 	//Number of bytes we'll have read

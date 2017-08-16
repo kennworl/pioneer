@@ -39,18 +39,81 @@
 *   experimental
 */
 
+
 static int l_serial_comms_write_data(lua_State *l)
 {
-	if (!Pi::SP || !Pi::SP->IsConnected())
-		luaL_error(l, "COM3 is not connected.");
+	boolean writeData = false;
 
-	std::string msg = luaL_checkstring(l, 1);
-	if (msg.compare(heading) != 0) {
-		heading.assign(msg);
-		if (!Pi::SP->WriteData(msg.c_str(), msg.length()))
-			luaL_error(l, "Could not write to COM3.");
+	if (!(!Pi::SP || !Pi::SP->IsConnected())) {
+		std::string msg = luaL_checkstring(l, 1);
+		if (!writeData && msg[0] == 'h' && msg[1] == 'd' && msg.compare(heading) != 0) {
+			heading.assign(msg);
+			writeData = true;
+		}
+		if (!writeData && msg[0] == 'l' && msg[1] == 'g' && msg.compare(landingGear) != 0) {
+			landingGear.assign(msg);
+			writeData = true;
+		}
+		if (writeData && !Pi::SP->WriteData(msg.c_str(), msg.length())) {
+				luaL_error(l, "Could not write to COM3.");
+		}
 	}
 	return 0;
+}
+
+
+static int l_is_landing_gear_button_released(lua_State *l)
+{
+
+	bool status = Pi::isUnhandledLandingGearButtonReleased();
+	lua_pushboolean(l, status);
+
+	return 1;
+}
+
+static int l_is_level_pitch_button_released(lua_State *l)
+{
+
+	bool status = Pi::isUnhandledLevelPitchButtonReleased();
+	lua_pushboolean(l, status);
+
+	return 1;
+}
+
+static int l_is_pitch_up(lua_State *l)
+{
+
+	bool status = Pi::isPitchUp();
+	lua_pushboolean(l, status);
+
+	return 1;
+}
+
+static int l_is_pitch_down(lua_State *l)
+{
+
+	bool status = Pi::isPitchDown();
+	lua_pushboolean(l, status);
+
+	return 1;
+}
+
+static int l_is_yaw_left(lua_State *l)
+{
+
+	bool status = Pi::isYawLeft();
+	lua_pushboolean(l, status);
+
+	return 1;
+}
+
+static int l_is_yaw_right(lua_State *l)
+{
+
+	bool status = Pi::isYawRight();
+	lua_pushboolean(l, status);
+
+	return 1;
 }
 
 
@@ -62,6 +125,12 @@ void LuaSerialComms::Register()
 
 	static const luaL_Reg l_methods[] = {
 		{ "WriteData",          l_serial_comms_write_data },
+		{ "isLandingGearButtonReleased",          l_is_landing_gear_button_released },
+		{ "isLevelPitchButtonReleased",          l_is_level_pitch_button_released },
+		{ "isPitchUp",          l_is_pitch_up },
+		{ "isPitchDown",          l_is_pitch_down },
+		{ "isYawRight",          l_is_yaw_left },
+		{ "isYawRight",          l_is_yaw_right },
 		{ 0, 0 }
 	};
 

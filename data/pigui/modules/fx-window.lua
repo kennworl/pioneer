@@ -8,6 +8,7 @@ local lc = Lang.GetResource("core");
 local lui = Lang.GetResource("ui-core");
 local utils = import("utils")
 local Event = import("Event")
+local SerialComms = import("SerialComms")
 
 local player = nil
 local colors = ui.theme.colors
@@ -169,17 +170,20 @@ local function button_wheelstate()
 	local wheelstate = player:GetWheelState() -- 0.0 is up, 1.0 is down
 	if wheelstate == 0.0 then -- gear is up
 		ui.sameLine()
-		if mainMenuButton(icons.landing_gear_down, false, "landing gear is up") or (ui.noModifierHeld() and ui.isKeyReleased(ui.keys.f6)) then
+		if mainMenuButton(icons.landing_gear_down, false, "landing gear is up") or (ui.noModifierHeld() and ui.isKeyReleased(ui.keys.f6)) or SerialComms.isLandingGearButtonReleased() then
 			player:ToggleWheelState()
 		end
+		SerialComms.WriteData("lgu~")
 	elseif wheelstate == 1.0 then -- gear is down
 		ui.sameLine()
-		if mainMenuButton(icons.landing_gear_up, false, "landing gear is down") or (ui.noModifierHeld() and ui.isKeyReleased(ui.keys.f6)) then
+		if mainMenuButton(icons.landing_gear_up, false, "landing gear is down") or (ui.noModifierHeld() and ui.isKeyReleased(ui.keys.f6)) or SerialComms.isLandingGearButtonReleased() then
 			player:ToggleWheelState()
 		end
+		SerialComms.WriteData("lgd~")
 	else
 		ui.sameLine()
 		mainMenuButton(icons.landing_gear_up, false, "landing gear is moving", colors.grey)
+		SerialComms.WriteData("lgm~")
 	end
 end
 

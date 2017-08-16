@@ -10,7 +10,9 @@ namespace LuaSerialComms {
 	void Register();
 }
 
+// These are for checking if the output strings to Arduino have changed and should be sent.
 static std::string heading = "";
+static std::string landingGear = "";
 
 #endif
 
