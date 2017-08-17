@@ -1,6 +1,6 @@
 ﻿#pragma once
-#ifndef _SERIALCLASS_H
-#define _SERIALCLASS_H
+#ifndef _SERIALCOMMS_H
+#define _SERIALCOMMS_H
 
 #define ARDUINO_WAIT_TIME 2000
 
@@ -8,7 +8,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-class Serial
+class SerialComms
 {
 private:
 	//Serial comm handler
@@ -22,9 +22,9 @@ private:
 
 public:
 	//Initialize Serial communication with the given COM port
-	Serial(const char *portName);
+	SerialComms(const char *portName);
 	//Close the connection
-	~Serial();
+	~SerialComms();
 	//Read data in a buffer, if nbChar is greater than the
 	//maximum number of bytes available, it will return only the
 	//bytes available. The function return -1 when nothing could
@@ -41,4 +41,4 @@ public:
 
 };
 
-#endif // _SERIALCLASS_H
+#endif // _SERIALCOMMS_H

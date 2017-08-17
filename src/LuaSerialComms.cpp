@@ -5,7 +5,8 @@
 #include "LuaObject.h"
 #include "LuaUtils.h"
 #include "Pi.h"
-#include "SerialClass.h"
+#include "SerialComms.h"
+#include "SerialInterface.h"
 
 /*
 * Interface: Serial Comms
@@ -44,7 +45,7 @@ static int l_serial_comms_write_data(lua_State *l)
 {
 	boolean writeData = false;
 
-	if (!(!Pi::SP || !Pi::SP->IsConnected())) {
+	if (!(!Pi::serialPort || !Pi::serialPort->IsConnected())) {
 		std::string msg = luaL_checkstring(l, 1);
 		if (!writeData && msg[0] == 'h' && msg[1] == 'd' && msg.compare(heading) != 0) {
 			heading.assign(msg);
@@ -54,7 +55,7 @@ static int l_serial_comms_write_data(lua_State *l)
 			landingGear.assign(msg);
 			writeData = true;
 		}
-		if (writeData && !Pi::SP->WriteData(msg.c_str(), msg.length())) {
+		if (writeData && !Pi::serialPort->WriteData(msg.c_str(), msg.length())) {
 				luaL_error(l, "Could not write to COM3.");
 		}
 	}
@@ -65,7 +66,7 @@ static int l_serial_comms_write_data(lua_State *l)
 static int l_is_landing_gear_button_released(lua_State *l)
 {
 
-	bool status = Pi::isUnhandledLandingGearButtonReleased();
+	bool status = SerialInterface::isUnhandledLandingGearButtonReleased();
 	lua_pushboolean(l, status);
 
 	return 1;
@@ -74,7 +75,7 @@ static int l_is_landing_gear_button_released(lua_State *l)
 static int l_is_level_pitch_button_released(lua_State *l)
 {
 
-	bool status = Pi::isUnhandledLevelPitchButtonReleased();
+	bool status = SerialInterface::isUnhandledLevelPitchButtonReleased();
 	lua_pushboolean(l, status);
 
 	return 1;
@@ -83,7 +84,7 @@ static int l_is_level_pitch_button_released(lua_State *l)
 static int l_is_pitch_up(lua_State *l)
 {
 
-	bool status = Pi::isPitchUp();
+	bool status = SerialInterface::isPitchUp();
 	lua_pushboolean(l, status);
 
 	return 1;
@@ -92,7 +93,7 @@ static int l_is_pitch_up(lua_State *l)
 static int l_is_pitch_down(lua_State *l)
 {
 
-	bool status = Pi::isPitchDown();
+	bool status = SerialInterface::isPitchDown();
 	lua_pushboolean(l, status);
 
 	return 1;
@@ -101,7 +102,7 @@ static int l_is_pitch_down(lua_State *l)
 static int l_is_yaw_left(lua_State *l)
 {
 
-	bool status = Pi::isYawLeft();
+	bool status = SerialInterface::isYawLeft();
 	lua_pushboolean(l, status);
 
 	return 1;
@@ -110,7 +111,7 @@ static int l_is_yaw_left(lua_State *l)
 static int l_is_yaw_right(lua_State *l)
 {
 
-	bool status = Pi::isYawRight();
+	bool status = SerialInterface::isYawRight();
 	lua_pushboolean(l, status);
 
 	return 1;
@@ -124,13 +125,13 @@ void LuaSerialComms::Register()
 	LUA_DEBUG_START(l);
 
 	static const luaL_Reg l_methods[] = {
-		{ "WriteData",          l_serial_comms_write_data },
+		{ "WriteData",                            l_serial_comms_write_data },
 		{ "isLandingGearButtonReleased",          l_is_landing_gear_button_released },
-		{ "isLevelPitchButtonReleased",          l_is_level_pitch_button_released },
-		{ "isPitchUp",          l_is_pitch_up },
-		{ "isPitchDown",          l_is_pitch_down },
-		{ "isYawRight",          l_is_yaw_left },
-		{ "isYawRight",          l_is_yaw_right },
+		{ "isLevelPitchButtonReleased",           l_is_level_pitch_button_released },
+		{ "isPitchUp",                            l_is_pitch_up },
+		{ "isPitchDown",                          l_is_pitch_down },
+		{ "isYawRight",                           l_is_yaw_left },
+		{ "isYawRight",                           l_is_yaw_right },
 		{ 0, 0 }
 	};
 

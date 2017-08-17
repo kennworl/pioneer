@@ -217,7 +217,10 @@ static int l_body_is_more_important_than(lua_State *l)
 	// bodies are sorted by importance in menus
 
 	if(body == other)
-		return false;
+	{
+		LuaPush<bool>(l, false);
+		return 1;
+	}
 
 	Object::Type a = body->GetType();
 	const SystemBody *sb_a = body->GetSystemBody();
@@ -241,8 +244,10 @@ static int l_body_is_more_important_than(lua_State *l)
 	else if(a == Object::Type::STAR) result = true;
 	// any (non-star) object is smaller than a star
 	else if(b == Object::Type::STAR) result = false;
-	// a gas giant is larger than anything but a star
-	else if(a_gas_giant) result = true;
+	// a gas giant is larger than anything but a star,
+	// but remember to keep total order in mind: if both are
+	// gas giants, order alphabetically
+	else if(a_gas_giant) result = !b_gas_giant || body->GetLabel() < other->GetLabel();
 	// any (non-star, non-gas giant) object is smaller than a gas giant
 	else if(b_gas_giant) result = false;
 	// between two planets or moons, alphabetic
@@ -256,9 +261,11 @@ static int l_body_is_more_important_than(lua_State *l)
 	else if(a_moon) result = true;
 	// a non-moon is smaller than any moon
 	else if(b_moon) result = false;
-	// spacestation > ship > hyperspace cloud > cargo body > missile > projectile
+	// spacestation > city > ship > hyperspace cloud > cargo body > missile > projectile
 	else if(a == Object::Type::SPACESTATION) result = true;
 	else if(b == Object::Type::SPACESTATION) result = false;
+    else if(a == Object::Type::CITYONPLANET) result = true;
+    else if(b == Object::Type::CITYONPLANET) result = false;
 	else if(a == Object::Type::SHIP) result = true;
 	else if(b == Object::Type::SHIP) result = false;
 	else if(a == Object::Type::HYPERSPACECLOUD) result = true;
@@ -682,6 +689,22 @@ static int l_body_get_projected_screen_position(lua_State *l)
 	return pushOnScreenPositionDirection(l, p);
 }
 
+static int l_body_get_atmospheric_state(lua_State *l) {
+	Body *b = LuaObject<Body>::CheckFromLua(1);
+	//	const SystemBody *sb = b->GetSystemBody();
+	vector3d pos = Pi::player->GetPosition();
+	double center_dist = pos.Length();
+	if (b->IsType(Object::PLANET)) {
+		double pressure, density;
+		static_cast<Planet*>(b)->GetAtmosphericState(center_dist, &pressure, &density);
+		lua_pushnumber(l, pressure);
+		lua_pushnumber(l, density);
+		return 2;
+	} else {
+		return 0;
+	}
+}
+
 static int l_body_get_target_indicator_screen_position(lua_State *l)
 {
 	Body *b = LuaObject<Body>::CheckFromLua(1);
@@ -758,6 +781,7 @@ template <> void LuaObject<Body>::RegisterClass()
 		{ "GetProjectedScreenPosition", l_body_get_projected_screen_position },
 		{ "GetTargetIndicatorScreenPosition", l_body_get_target_indicator_screen_position },
 		{ "GetPhysicalRadius",   l_body_get_phys_radius },
+		{ "GetAtmosphericState", l_body_get_atmospheric_state },
 		{ "IsMoreImportantThan", l_body_is_more_important_than },
 		{ "IsMoon",              l_body_is_moon },
 		{ "IsPlanet",            l_body_is_planet },

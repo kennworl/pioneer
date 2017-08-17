@@ -1,6 +1,6 @@
-﻿#include "SerialClass.h"
+﻿#include "SerialComms.h"
 
-Serial::Serial(const char *portName)
+SerialComms::SerialComms(const char *portName)
 {
 	//We're not yet connected
 	this->connected = false;
@@ -70,7 +70,7 @@ Serial::Serial(const char *portName)
 
 }
 
-Serial::~Serial()
+SerialComms::~SerialComms()
 {
 	//Check if we are connected before trying to disconnect
 	if (this->connected)
@@ -82,14 +82,14 @@ Serial::~Serial()
 	}
 }
 
-int Serial::CheckData()
+int SerialComms::CheckData()
 {
 	//This will simply return the number of bytes available to read
 	ClearCommError(this->hSerial, &this->errors, &this->status);
 	return this->status.cbInQue;
 }
 
-int Serial::ReadData(char *buffer, unsigned int nbChar)
+int SerialComms::ReadData(char *buffer, unsigned int nbChar)
 {
 	//Number of bytes we'll have read
 	DWORD bytesRead;
@@ -128,7 +128,7 @@ int Serial::ReadData(char *buffer, unsigned int nbChar)
 }
 
 
-bool Serial::WriteData(const char *buffer, unsigned int nbChar)
+bool SerialComms::WriteData(const char *buffer, unsigned int nbChar)
 {
 	DWORD bytesSend;
 
@@ -144,7 +144,7 @@ bool Serial::WriteData(const char *buffer, unsigned int nbChar)
 		return true;
 }
 
-bool Serial::IsConnected()
+bool SerialComms::IsConnected()
 {
 	//Simply return the connection status
 	return this->connected;

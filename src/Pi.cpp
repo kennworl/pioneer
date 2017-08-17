@@ -86,7 +86,8 @@
 #include <algorithm>
 #include <sstream>
 
-#include "SerialClass.h"	// Library described above
+#include "SerialComms.h"
+#include "SerialInterface.h"
 
 #ifdef PROFILE_LUA_TIME
 #include <time.h>
@@ -128,15 +129,7 @@ View *Pi::currentView;
 TransferPlanner *Pi::planner;
 LuaConsole *Pi::luaConsole;
 
-Serial *Pi::SP;
-bool landingGearButtonPressed = false;
-bool landingGearButtonReleasedEvent = false;
-bool pitchUp = false;
-bool pitchDown = false;
-bool yawLeft = false;
-bool yawRight = false;
-bool levelPitchButtonPressed = false;
-bool levelPitchButtonReleasedEvent = false;
+SerialComms *Pi::serialPort;
 
 Game *Pi::game;
 Random Pi::rng;
@@ -350,9 +343,6 @@ static void LuaUninit() {
 	delete Pi::luaSerializer;
 	delete Pi::luaTimer;
 
-	// kennworl This will clean up the COM3 connection object
-	delete Pi::SP;
-
 	Lua::Uninit();
 }
 
@@ -468,9 +458,8 @@ void Pi::Init(const std::map<std::string,std::string> &options, bool no_gui)
 
 	Output("%s\n", OS::GetOSInfoString().c_str());
 
-	// kennworl This creates the serial connection to the Arduino via the standard COM3 serial port (via the USB)
-	Pi::SP = new Serial("COM3");
-	//if (SP->IsConnected()) SP->WriteData("555", 3);
+	// This creates the serial connection to the Arduino via the standard COM3 serial port (via the USB)
+	Pi::serialPort = new SerialComms("COM3");
 
 	ModManager::Init();
 
@@ -805,6 +794,7 @@ void Pi::Quit()
 	Projectile::FreeModel();
 	delete Pi::intro;
 	delete Pi::luaConsole;
+	delete Pi::serialPort;
 	NavLights::Uninit();
 	Shields::Uninit();
 	SfxManager::Uninit();
@@ -1243,7 +1233,6 @@ void Pi::StartGame()
 	Pi::player->onLanded.connect(sigc::ptr_fun(&OnPlayerDockOrUndock));
 	Pi::game->GetCpan()->ShowAll();
 	DrawGUI = true;
-	Pi::game->GetCpan()->SetAlertState(Ship::ALERT_NONE);
 	SetView(game->GetWorldView());
 
 #ifdef REMOTE_LUA_REPL
@@ -1497,21 +1486,21 @@ void Pi::MainLoop()
 		Pi::HandleEvents();
 
 		// We need to check the COM3 Serial port for messages from Arduino
-		if (!(!SP || !SP->IsConnected())) {                                    // If we have a connected SP 
-			int availableData = SP->CheckData();                               // check if we have data to read
-			if (availableData > 0) {                                           // if we have data to read
-				char *serialBuffer = new char[availableData+100];              // allocate a buffer (and make it a little bigger than necessary in case we have read something prematurely)
-				int readData = SP->ReadData(serialBuffer, availableData);      // read into the buffer from the SP
-				if (readData > 0) {                                            // if we actually read something
-					while (serialBuffer[readData - 1] != '~') {                // check that we have a complete set of commands (we may have chopped off some at the end) No command is more than 100 chars long.
+		if (!(!serialPort || !serialPort->IsConnected())) {                                  // If we have a connected SerialPort 
+			int availableData = serialPort->CheckData();                                     // check what data we have to read
+			if (availableData > 0) {                                                         // if we have data to read
+				char *serialBuffer = new char[availableData+100];                            // allocate a buffer (and make it a little bigger than necessary in case we have read something prematurely)
+				int readData = serialPort->ReadData(serialBuffer, availableData);            // read into the buffer from the SP
+				if (readData > 0) {                                                          // if we actually read something
+					while (serialBuffer[readData - 1] != '~') {                              // check that we have a complete set of commands (we may have chopped off some at the end) No command is more than 100 chars long.
 						if (readData < availableData + 100) {
-							readData += SP->ReadData(&(serialBuffer[readData]), 1);  // char by char, get to the end of the current command
+							readData += serialPort->ReadData(&(serialBuffer[readData]), 1);  // char by char, read the serial port to the end of the current command
 						}
 					}
-					ParseSerialInput(serialBuffer, readData);                  // parse it
+					SerialInterface::ParseSerialInput(serialBuffer, readData);               // parse it
 				}
-				delete [] serialBuffer;                                        // delete the buffer
-				serialBuffer = nullptr;                                        // null out the pointer
+				delete [] serialBuffer;                                                      // delete the buffer
+				serialBuffer = nullptr;                                                      // null out the pointer
 			}
 		}
 
@@ -1683,85 +1672,6 @@ void Pi::MainLoop()
 	}
 }
 
-void Pi::ParseSerialInput(char* buffer, int buflen) {
-	if (buflen == 0) return;
-	int counter = 0;
-	bool loopFinished = false;
-	while (!loopFinished) {
-		if ((buflen - counter) > 4 && buffer[counter] == 'l' && buffer[counter + 1] == 'g' && buffer[counter + 2] == 'b' && buffer[counter + 4] == '~') {
-			// we have a landing gear input
-			if (buffer[counter + 3] == 'u') {               // if the button is released
-				if (landingGearButtonPressed) {
-					landingGearButtonReleasedEvent = true;
-				}
-				landingGearButtonPressed = false;
-			}
-			else landingGearButtonPressed = true;        // else it is pressed
-			counter += 5;
-		}
-		else if ((buflen - counter) > 4 && buffer[counter] == 'j' && buffer[counter + 1] == '1' && buffer[counter + 4] == '~') {
-			// we have a joystick 1 control input
-			if (buffer[counter + 2] == 'p' && buffer[counter + 3] == 'u') {               // if joystick1 is pushed up (Pitch up)
-				pitchUp = true;
-				pitchDown = false;
-			}
-			else if (buffer[counter + 2] == 'p' && buffer[counter + 3] == 'd') {               // if joystick1 is pushed down (Pitch down)
-					pitchUp = false;
-					pitchDown = true;
-			}
-			else if (buffer[counter + 2] == 'p' && buffer[counter + 3] == 'n') {               // if joystick1 is not up or down (Pitch neutral)
-				pitchUp = false;
-				pitchDown = false;
-			}
-			else if (buffer[counter + 2] == 'y' && buffer[counter + 3] == 'l') {               // if joystick1 is pushed left (Yaw left)
-				yawLeft = true;
-				yawRight = false;
-			}
-			else if (buffer[counter + 2] == 'y' && buffer[counter + 3] == 'r') {               // if joystick1 is pushed left (Yaw left)
-				yawLeft = false;
-				yawRight = true;
-			}
-			else if (buffer[counter + 2] == 'y' && buffer[counter + 3] == 'n') {               // if joystick1 is not left (Yaw neutral)
-				yawLeft = false;
-				yawRight = false;
-			}
-			else if (buffer[counter + 2] == 'b' && buffer[counter + 3] == 'd') {               // if joystick1 button pressed
-				levelPitchButtonPressed = true; 
-			}
-			else if (buffer[counter + 2] == 'b' && buffer[counter + 3] == 'u') {               // if joystick1 is not pressed
-				if (levelPitchButtonPressed) {
-					levelPitchButtonReleasedEvent = true;
-				}
-				levelPitchButtonPressed = false;
-			}
-			counter += 5;
-		}
-		if ((buflen == counter)) loopFinished = true;
-	}
-}
-
-bool Pi::isUnhandledLandingGearButtonReleased() {
-	if (landingGearButtonReleasedEvent) {
-		landingGearButtonReleasedEvent = false;
-		return true;
-	}
-	return false;
-}
-
-bool Pi::isUnhandledLevelPitchButtonReleased() {
-	if (levelPitchButtonReleasedEvent) {
-		levelPitchButtonReleasedEvent = false;
-		return true;
-	}
-	return false;
-}
-
-bool Pi::isPitchUp() { return pitchUp; }
-bool Pi::isPitchDown() { return pitchDown; }
-bool Pi::isYawLeft() { return yawLeft; }
-bool Pi::isYawRight() { return yawRight; }
-
-
 void Pi::InitJoysticks() {
 	int joy_count = SDL_NumJoysticks();
 	for (int n = 0; n < joy_count; n++) {
@@ -1880,7 +1790,8 @@ void Pi::DrawPiGui(double delta, std::string handler) {
 	#ifdef PROFILE_LUA_TIME
 	auto before = clock();
 	#endif
-	Pi::pigui->Render(delta, handler);
+	if(!IsConsoleActive())
+		Pi::pigui->Render(delta, handler);
 	#ifdef PROFILE_LUA_TIME
 	auto after = clock();
   Output("Lua PiGUI took %f\n", double(after - before) / CLOCKS_PER_SEC);

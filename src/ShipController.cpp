@@ -11,6 +11,7 @@
 #include "Space.h"
 #include "WorldView.h"
 #include "OS.h"
+#include "SerialInterface.h"
 
 void ShipController::StaticUpdate(float timeStep)
 {
@@ -285,10 +286,10 @@ void PlayerShipController::PollControls(const float timeStep, const bool force_r
 				m_ship->SetGunState(Pi::game->GetWorldView()->GetActiveWeapon(), 1);
 		}
 
-		if (KeyBindings::yawLeft.IsActive() || Pi::isYawLeft()) wantAngVel.y += 1.0;
-		if (KeyBindings::yawRight.IsActive() || Pi::isYawRight()) wantAngVel.y += -1.0;
-		if (KeyBindings::pitchDown.IsActive() || Pi::isPitchDown()) wantAngVel.x += -1.0;
-		if (KeyBindings::pitchUp.IsActive() || Pi::isPitchUp()) wantAngVel.x += 1.0;
+		if (KeyBindings::yawLeft.IsActive() || SerialInterface::isYawLeft()) wantAngVel.y += 1.0;
+		if (KeyBindings::yawRight.IsActive() || SerialInterface::isYawRight()) wantAngVel.y += -1.0;
+		if (KeyBindings::pitchDown.IsActive() || SerialInterface::isPitchDown()) wantAngVel.x += -1.0;
+		if (KeyBindings::pitchUp.IsActive() || SerialInterface::isPitchUp()) wantAngVel.x += 1.0;
 		if (KeyBindings::rollLeft.IsActive()) wantAngVel.z += 1.0;
 		if (KeyBindings::rollRight.IsActive()) wantAngVel.z -= 1.0;
 		if (KeyBindings::killRot.IsActive()) SetFlightControlState(CONTROL_FIXHEADING_KILLROT);
@@ -337,10 +338,10 @@ bool PlayerShipController::IsAnyAngularThrusterKeyDown()
 		KeyBindings::yawRight.IsActive()  ||
 		KeyBindings::rollLeft.IsActive()  ||
 		KeyBindings::rollRight.IsActive() ||
-		Pi::isYawLeft()                   ||
-		Pi::isYawRight()                  ||
-		Pi::isPitchUp()                   ||
-		Pi::isPitchDown()
+		SerialInterface::isYawLeft()      ||
+		SerialInterface::isYawRight()     ||
+		SerialInterface::isPitchUp()      ||
+		SerialInterface::isPitchDown()
 	);
 }
 
@@ -436,4 +437,9 @@ void PlayerShipController::SetNavTarget(Body* const target, bool setSpeedTo)
 	else if (m_setSpeedTarget == m_navTarget)
 		m_setSpeedTarget = 0;
 	m_navTarget = target;
+}
+
+void PlayerShipController::SetSetSpeedTarget(Body* const target)
+{
+	m_setSpeedTarget = target;
 }

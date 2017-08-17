@@ -1045,7 +1045,25 @@ static int l_ship_get_flight_control_state(lua_State *l) {
 
 static int l_ship_get_set_speed(lua_State *l) {
 	Ship *s = LuaObject<Ship>::CheckFromLua(1);
-	LuaPush(l, s->GetController()->GetSetSpeed());
+	if(s->GetController()->GetFlightControlState() == CONTROL_FIXSPEED)
+		LuaPush(l, s->GetController()->GetSetSpeed());
+	else
+		lua_pushnil(l);
+	return 1;
+}
+
+static int l_ship_get_set_speed_target(lua_State *l) {
+	Ship *s = LuaObject<Ship>::CheckFromLua(1);
+	Body *t = s->GetController()->GetSetSpeedTarget();
+	if(s->GetType() == Object::Type::PLAYER && t == nullptr) {
+		Frame *f = s->GetFrame();
+		if(f)
+			t = f->GetBody();
+	}
+	if(t)
+		LuaObject<Body>::PushToLua(t);
+	else
+		lua_pushnil(l);
 	return 1;
 }
 
@@ -1166,6 +1184,35 @@ static int l_ship_get_position(lua_State *l)
 	return 1;
 }
 
+static int l_ship_get_hull_temperature(lua_State *l) {
+	Ship *s = LuaObject<Ship>::CheckFromLua(1);
+	LuaPush(l, s->GetHullTemperature());
+	return 1;
+}
+
+static int l_ship_get_gun_temperature(lua_State *l) {
+	Ship *s = LuaObject<Ship>::CheckFromLua(1);
+	int gun = luaL_checkinteger(l, 2);
+	LuaPush(l, s->GetGunTemperature(gun));
+	return 1;
+}
+
+static int l_ship_get_hull_percent(lua_State *l) {
+	Ship *s = LuaObject<Ship>::CheckFromLua(1);
+	LuaPush(l, s->GetPercentHull());
+	return 1;
+}
+
+static int l_ship_get_shields_percent(lua_State *l) {
+	Ship *s = LuaObject<Ship>::CheckFromLua(1);
+	double shields = s->GetPercentShields();
+	if(s->GetStats().shield_mass <= 0)
+		lua_pushnil(l);
+	else
+		lua_pushnumber(l, shields);
+	return 1;
+}
+
 static int l_ship_is_docked(lua_State *l) {
 	Ship *s = LuaObject<Ship>::CheckFromLua(1);
 	lua_pushboolean(l, s->IsDocked());
@@ -1248,13 +1295,19 @@ template <> void LuaObject<Ship>::RegisterClass()
 		{ "IsDocked",    l_ship_is_docked },
 		{ "IsLanded",    l_ship_is_landed },
 
-		{ "GetWheelState", l_ship_get_wheel_state },
-		{ "ToggleWheelState", l_ship_toggle_wheel_state },
-		{ "GetFlightState", l_ship_get_flight_state },
-		{ "GetSetSpeed", l_ship_get_set_speed },
+		{ "GetWheelState",     l_ship_get_wheel_state },
+		{ "ToggleWheelState",  l_ship_toggle_wheel_state },
+		{ "GetFlightState",    l_ship_get_flight_state },
+		{ "GetSetSpeed",       l_ship_get_set_speed },
+		{ "GetSetSpeedTarget", l_ship_get_set_speed_target },
 
 		{ "GetHyperspaceCountdown", l_ship_get_hyperspace_countdown },
 		{ "IsHyperspaceActive",     l_ship_is_hyperspace_active },
+
+		{ "GetHullTemperature", l_ship_get_hull_temperature },
+		{ "GetGunTemperature",  l_ship_get_gun_temperature },
+		{ "GetHullPercent",     l_ship_get_hull_percent },
+		{ "GetShieldsPercent",  l_ship_get_shields_percent },
 
 		{ "GetFlightControlState",  l_ship_get_flight_control_state },
 		{ "GetCurrentAICommand",    l_ship_get_current_ai_command },
