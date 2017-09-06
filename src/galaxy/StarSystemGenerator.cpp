@@ -1,4 +1,4 @@
-// Copyright © 2008-2017 Pioneer Developers. See AUTHORS.txt for details
+﻿// Copyright © 2008-2017 Pioneer Developers. See AUTHORS.txt for details
 // Licensed under the terms of the GPL v3. See licenses/GPL-3.txt
 
 #include "StarSystemGenerator.h"
@@ -779,6 +779,8 @@ void StarSystemRandomGenerator::PickPlanetType(SystemBody *sbody, Random &rand)
 
 	sbody->m_averageTemp = bbody_temp;
 
+	double test2 = (1.0 + rand.Int32(-10, 10) / 100.0);
+
 	static const fixed ONEEUMASS = fixed::FromDouble(1);
 	static const fixed TWOHUNDREDEUMASSES = fixed::FromDouble(200.0);
 	// We get some more fractional bits for small bodies otherwise we can easily end up with 0 radius which breaks stuff elsewhere
@@ -793,7 +795,10 @@ void StarSystemRandomGenerator::PickPlanetType(SystemBody *sbody, Random &rand)
 		sbody->m_radius = fixed::FromDouble(pow( sbody->GetMassAsFixed().ToDouble(), 0.3 ));
 	} else if( sbody->GetMassAsFixed() < TWOHUNDREDEUMASSES ) {
 		// from 1 EU to 200 they transition from Earth-like rocky bodies, through Ocean worlds and on to Gas Giants
-		sbody->m_radius = fixed::FromDouble(pow( sbody->GetMassAsFixed().ToDouble(), 0.5 ));
+		//sbody->m_radius = fixed::FromDouble(pow(sbody->GetMassAsFixed().ToDouble(), 0.5));
+		sbody->m_radius = fixed::FromDouble(pow(sbody->GetMassAsFixed().ToDouble(), 0.5) * (1.0 + rand.Int32(-10, 10) / 100.0));
+		// The above calculation r=m^-2 combined with the standard gravity formula g=G*m/r^2 works out to be standard 1g (issue #4111)
+		// added a random factor +/- 0 to 10%
 	} else {
 		// Anything bigger than 200 EU masses is a Gas Giant or bigger but the density changes to decrease from here on up...
 		sbody->m_radius = fixed::FromDouble( 22.6 * (1.0/pow(sbody->GetMassAsFixed().ToDouble(), double(0.0886))) );

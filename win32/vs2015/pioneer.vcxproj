@@ -44,7 +44,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>NotSet</CharacterSet>
     <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
@@ -367,107 +367,307 @@
     <ClCompile Include="..\..\contrib\imgui\examples\sdl_opengl3_example\imgui_impl_sdl_gl3.cpp" />
     <ClCompile Include="..\..\contrib\imgui\imgui.cpp" />
     <ClCompile Include="..\..\contrib\imgui\imgui_draw.cpp" />
-    <ClCompile Include="..\..\contrib\PicoDDS\PicoDDS.cpp" />
-    <ClCompile Include="..\..\src\AmbientSounds.cpp" />
-    <ClCompile Include="..\..\src\Background.cpp" />
-    <ClCompile Include="..\..\src\BaseSphere.cpp" />
-    <ClCompile Include="..\..\src\Body.cpp" />
-    <ClCompile Include="..\..\src\Camera.cpp" />
-    <ClCompile Include="..\..\src\CameraController.cpp" />
-    <ClCompile Include="..\..\src\CargoBody.cpp" />
-    <ClCompile Include="..\..\src\CityOnPlanet.cpp" />
-    <ClCompile Include="..\..\src\CollMesh.cpp" />
-    <ClCompile Include="..\..\src\Color.cpp" />
-    <ClCompile Include="..\..\src\CRC32.cpp" />
-    <ClCompile Include="..\..\src\DateTime.cpp" />
-    <ClCompile Include="..\..\src\DeathView.cpp" />
-    <ClCompile Include="..\..\src\DynamicBody.cpp" />
-    <ClCompile Include="..\..\src\EnumStrings.cpp" />
-    <ClCompile Include="..\..\src\enum_table.cpp" />
-    <ClCompile Include="..\..\src\FaceParts.cpp" />
-    <ClCompile Include="..\..\src\Factions.cpp" />
-    <ClCompile Include="..\..\src\FileSourceZip.cpp" />
-    <ClCompile Include="..\..\src\FileSystem.cpp" />
-    <ClCompile Include="..\..\src\FixedGuns.cpp" />
-    <ClCompile Include="..\..\src\FontCache.cpp" />
-    <ClCompile Include="..\..\src\Frame.cpp" />
-    <ClCompile Include="..\..\src\Game.cpp" />
-    <ClCompile Include="..\..\src\GameConfig.cpp" />
-    <ClCompile Include="..\..\src\GameLog.cpp" />
-    <ClCompile Include="..\..\src\GasGiant.cpp" />
-    <ClCompile Include="..\..\src\GasGiantJobs.cpp" />
-    <ClCompile Include="..\..\src\GeoPatch.cpp" />
-    <ClCompile Include="..\..\src\GeoPatchContext.cpp" />
-    <ClCompile Include="..\..\src\GeoPatchID.cpp" />
-    <ClCompile Include="..\..\src\GeoPatchJobs.cpp" />
-    <ClCompile Include="..\..\src\GeoSphere.cpp" />
-    <ClCompile Include="..\..\src\HudTrail.cpp" />
-    <ClCompile Include="..\..\src\HyperspaceCloud.cpp" />
-    <ClCompile Include="..\..\src\IniConfig.cpp" />
-    <ClCompile Include="..\..\src\Intro.cpp" />
-    <ClCompile Include="..\..\src\JobQueue.cpp" />
-    <ClCompile Include="..\..\src\KeyBindings.cpp" />
-    <ClCompile Include="..\..\src\Lang.cpp" />
-    <ClCompile Include="..\..\src\Lua.cpp" />
-    <ClCompile Include="..\..\src\LuaBody.cpp" />
-    <ClCompile Include="..\..\src\LuaCargoBody.cpp" />
-    <ClCompile Include="..\..\src\LuaComms.cpp" />
-    <ClCompile Include="..\..\src\LuaConsole.cpp" />
-    <ClCompile Include="..\..\src\LuaConstants.cpp" />
-    <ClCompile Include="..\..\src\LuaDev.cpp" />
-    <ClCompile Include="..\..\src\LuaEngine.cpp" />
-    <ClCompile Include="..\..\src\LuaEvent.cpp" />
-    <ClCompile Include="..\..\src\LuaFaction.cpp" />
-    <ClCompile Include="..\..\src\LuaFileSystem.cpp" />
-    <ClCompile Include="..\..\src\LuaFixed.cpp" />
-    <ClCompile Include="..\..\src\LuaFormat.cpp" />
-    <ClCompile Include="..\..\src\LuaGame.cpp" />
-    <ClCompile Include="..\..\src\LuaLang.cpp" />
-    <ClCompile Include="..\..\src\LuaManager.cpp" />
-    <ClCompile Include="..\..\src\LuaMatrix.cpp" />
-    <ClCompile Include="..\..\src\LuaMissile.cpp" />
-    <ClCompile Include="..\..\src\LuaModelBody.cpp" />
-    <ClCompile Include="..\..\src\LuaMusic.cpp" />
-    <ClCompile Include="..\..\src\LuaNameGen.cpp" />
-    <ClCompile Include="..\..\src\LuaObject.cpp" />
-    <ClCompile Include="..\..\src\LuaPiGui.cpp" />
-    <ClCompile Include="..\..\src\LuaPlanet.cpp" />
-    <ClCompile Include="..\..\src\LuaPlayer.cpp" />
-    <ClCompile Include="..\..\src\LuaPropertiedObject.cpp" />
-    <ClCompile Include="..\..\src\LuaRand.cpp" />
-    <ClCompile Include="..\..\src\LuaRef.cpp" />
-    <ClCompile Include="..\..\src\LuaSerialComms.cpp" />
-    <ClCompile Include="..\..\src\LuaSerializer.cpp" />
-    <ClCompile Include="..\..\src\LuaServerAgent.cpp" />
-    <ClCompile Include="..\..\src\LuaShip.cpp" />
-    <ClCompile Include="..\..\src\LuaShipDef.cpp" />
-    <ClCompile Include="..\..\src\LuaSpace.cpp" />
-    <ClCompile Include="..\..\src\LuaSpaceStation.cpp" />
+    <ClCompile Include="..\..\contrib\PicoDDS\PicoDDS.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\AmbientSounds.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Background.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\BaseSphere.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Body.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Camera.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\CameraController.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\CargoBody.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\CityOnPlanet.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\CollMesh.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Color.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\CRC32.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\DateTime.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\DeathView.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\DynamicBody.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\EnumStrings.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\enum_table.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\FaceParts.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Factions.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\FileSourceZip.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\FileSystem.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\FixedGuns.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\FontCache.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Frame.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Game.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\GameConfig.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\GameLog.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\GasGiant.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\GasGiantJobs.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\GeoPatch.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\GeoPatchContext.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\GeoPatchID.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\GeoPatchJobs.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\GeoSphere.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\HudTrail.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\HyperspaceCloud.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\IniConfig.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Intro.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\JobQueue.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\KeyBindings.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Lang.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Lua.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\LuaBody.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\LuaCargoBody.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\LuaComms.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\LuaConsole.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\LuaConstants.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\LuaDev.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\LuaEngine.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\LuaEvent.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\LuaFaction.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\LuaFileSystem.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\LuaFixed.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\LuaFormat.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\LuaGame.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\LuaLang.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\LuaManager.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\LuaMatrix.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\LuaMissile.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\LuaModelBody.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\LuaMusic.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\LuaNameGen.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\LuaObject.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\LuaPiGui.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\LuaPlanet.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\LuaPlayer.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\LuaPropertiedObject.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\LuaRand.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\LuaRef.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\LuaSerialComms.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\LuaSerializer.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\LuaServerAgent.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\LuaShip.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\LuaShipDef.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\LuaSpace.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\LuaSpaceStation.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
     <ClCompile Include="..\..\src\LuaStar.cpp" />
-    <ClCompile Include="..\..\src\LuaStarSystem.cpp" />
-    <ClCompile Include="..\..\src\LuaSystemBody.cpp" />
-    <ClCompile Include="..\..\src\LuaSystemPath.cpp" />
-    <ClCompile Include="..\..\src\LuaTimer.cpp" />
-    <ClCompile Include="..\..\src\LuaUtils.cpp" />
-    <ClCompile Include="..\..\src\LuaVector.cpp" />
-    <ClCompile Include="..\..\src\main.cpp" />
-    <ClCompile Include="..\..\src\MathUtil.cpp" />
-    <ClCompile Include="..\..\src\Missile.cpp" />
-    <ClCompile Include="..\..\src\ModelBody.cpp" />
-    <ClCompile Include="..\..\src\ModelCache.cpp" />
-    <ClCompile Include="..\..\src\ModelViewer.cpp" />
-    <ClCompile Include="..\..\src\ModManager.cpp" />
-    <ClCompile Include="..\..\src\NavLights.cpp" />
-    <ClCompile Include="..\..\src\ObjectViewerView.cpp" />
-    <ClCompile Include="..\..\src\Orbit.cpp" />
-    <ClCompile Include="..\..\src\perlin.cpp" />
-    <ClCompile Include="..\..\src\Pi.cpp" />
-    <ClCompile Include="..\..\src\PiGui.cpp" />
-    <ClCompile Include="..\..\src\Plane.cpp" />
-    <ClCompile Include="..\..\src\Planet.cpp" />
-    <ClCompile Include="..\..\src\Player.cpp" />
-    <ClCompile Include="..\..\src\PngWriter.cpp" />
-    <ClCompile Include="..\..\src\Polit.cpp" />
+    <ClCompile Include="..\..\src\LuaStarSystem.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\LuaSystemBody.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\LuaSystemPath.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\LuaTimer.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\LuaUtils.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\LuaVector.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\main.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\MathUtil.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Missile.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\ModelBody.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\ModelCache.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\ModelViewer.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\ModManager.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\NavLights.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\ObjectViewerView.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Orbit.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\perlin.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Pi.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\PiGui.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Plane.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Planet.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Player.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\PngWriter.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Polit.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
     <ClCompile Include="..\..\src\posix\FileSystemPosix.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
@@ -488,47 +688,122 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Profile|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\src\Projectile.cpp" />
-    <ClCompile Include="..\..\src\PropertyMap.cpp" />
-    <ClCompile Include="..\..\src\Propulsion.cpp" />
-    <ClCompile Include="..\..\src\RandomColor.cpp" />
-    <ClCompile Include="..\..\src\SDLWrappers.cpp" />
-    <ClCompile Include="..\..\src\SectorView.cpp" />
-    <ClCompile Include="..\..\src\Sensors.cpp" />
-    <ClCompile Include="..\..\src\SerialClass.cpp" />
-    <ClCompile Include="..\..\src\Serializer.cpp" />
-    <ClCompile Include="..\..\src\ServerAgent.cpp" />
-    <ClCompile Include="..\..\src\Sfx.cpp" />
-    <ClCompile Include="..\..\src\Shields.cpp" />
-    <ClCompile Include="..\..\src\Ship-AI.cpp" />
-    <ClCompile Include="..\..\src\Ship.cpp" />
-    <ClCompile Include="..\..\src\ShipAICmd.cpp" />
-    <ClCompile Include="..\..\src\ShipCockpit.cpp" />
-    <ClCompile Include="..\..\src\ShipController.cpp" />
-    <ClCompile Include="..\..\src\ShipCpanel.cpp" />
-    <ClCompile Include="..\..\src\ShipCpanelMultiFuncDisplays.cpp" />
-    <ClCompile Include="..\..\src\ShipType.cpp" />
-    <ClCompile Include="..\..\src\Sound.cpp" />
-    <ClCompile Include="..\..\src\SoundMusic.cpp" />
-    <ClCompile Include="..\..\src\Space.cpp" />
-    <ClCompile Include="..\..\src\SpaceStation.cpp" />
-    <ClCompile Include="..\..\src\SpaceStationType.cpp" />
-    <ClCompile Include="..\..\src\SpeedLines.cpp" />
-    <ClCompile Include="..\..\src\Sphere.cpp" />
-    <ClCompile Include="..\..\src\Star.cpp" />
-    <ClCompile Include="..\..\src\StringF.cpp" />
-    <ClCompile Include="..\..\src\SystemInfoView.cpp" />
-    <ClCompile Include="..\..\src\SystemView.cpp" />
-    <ClCompile Include="..\..\src\TerrainBody.cpp" />
-    <ClCompile Include="..\..\src\Tombstone.cpp" />
-    <ClCompile Include="..\..\src\UIView.cpp" />
-    <ClCompile Include="..\..\src\utils.cpp" />
-    <ClCompile Include="..\..\src\View.cpp" />
+    <ClCompile Include="..\..\src\Projectile.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\PropertyMap.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Propulsion.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\RandomColor.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\SDLWrappers.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\SectorView.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Sensors.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\SerialComms.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\SerialInterface.cpp" />
+    <ClCompile Include="..\..\src\Serializer.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\ServerAgent.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Sfx.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Shields.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Ship-AI.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Ship.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\ShipAICmd.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\ShipCockpit.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\ShipController.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\ShipCpanel.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\ShipCpanelMultiFuncDisplays.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\ShipType.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Sound.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\SoundMusic.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Space.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\SpaceStation.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\SpaceStationType.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\SpeedLines.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Sphere.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Star.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\StringF.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\SystemInfoView.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\SystemView.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\TerrainBody.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Tombstone.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\UIView.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\utils.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <ClCompile Include="..\..\src\View.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
     <ClCompile Include="..\..\src\win32\FileSystemWin32.cpp" />
     <ClCompile Include="..\..\src\win32\OSWin32.cpp" />
     <ClCompile Include="..\..\src\win32\TextUtils.cpp" />
     <ClCompile Include="..\..\src\win32\WinMath.cpp" />
-    <ClCompile Include="..\..\src\WorldView.cpp" />
+    <ClCompile Include="..\..\src\WorldView.cpp">
+      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\contrib\imgui\examples\sdl_opengl2_example\imgui_impl_sdl.h" />
@@ -649,7 +924,8 @@
     <ClInclude Include="..\..\src\SDLWrappers.h" />
     <ClInclude Include="..\..\src\SectorView.h" />
     <ClInclude Include="..\..\src\Sensors.h" />
-    <ClInclude Include="..\..\src\SerialClass.h" />
+    <ClInclude Include="..\..\src\SerialComms.h" />
+    <ClInclude Include="..\..\src\SerialInterface.h" />
     <ClInclude Include="..\..\src\Serializer.h" />
     <ClInclude Include="..\..\src\ServerAgent.h" />
     <ClInclude Include="..\..\src\Sfx.h" />
@@ -685,9 +961,11 @@
     <ClInclude Include="..\..\src\win32\TextUtils.h" />
     <ClInclude Include="..\..\src\win32\WinMath.h" />
     <ClInclude Include="..\..\src\WorldView.h" />
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\..\src\win32\pioneer.rc" />
+    <ResourceCompile Include="pioneer.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
