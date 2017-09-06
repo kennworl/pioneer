@@ -19,6 +19,18 @@
       "description" : "",
       "message" : "No se ha detectado mercancía ilegal. Proceda."
    },
+   "OUTLAW_DETECTED_1" : {
+      "description" : "",
+      "message" : "{ship_label} está siendo pilotado por un conocido proscrito ¡Atacar y destruir!"
+   },
+   "OUTLAW_DETECTED_2" : {
+      "description" : "",
+      "message" : "¡Bandido, tus días están contados!"
+   },
+   "OUTLAW_DETECTED_3" : {
+      "description" : "",
+      "message" : "¡Ajá, capturado! ¡No escaparás de este sistema con vida!"
+   },
    "POLICE_TAUNT_1" : {
       "description" : "",
       "message" : "¡Hijo, eso ha sido una mala idea!"

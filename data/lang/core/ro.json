@@ -595,10 +595,6 @@
       "description" : "",
       "message" : "Ţintă hiperspațiu"
    },
-   "HYPERSPACING_IN_N_SECONDS" : {
-      "description" : "",
-      "message" : "Hiperspațiu în %countdown{f.0} secunde"
-   },
    "H_ATMOSPHERE" : {
       "description" : "",
       "message" : "\" Atmosferă de Hidrogen\""
@@ -621,7 +617,7 @@
    },
    "INCREASE_RADAR_RANGE" : {
       "description" : "",
-      "message" : "Increase radar range"
+      "message" : "Crește amplitudine radar"
    },
    "INCREASE_SET_SPEED" : {
       "description" : "",
@@ -647,14 +643,6 @@
       "description" : "",
       "message" : "Vizionare internă"
    },
-   "IN_TRANSIT" : {
-      "description" : "",
-      "message" : "În tranzit"
-   },
-   "IN_TRANSIT_TO_N_X_X_X" : {
-      "description" : "",
-      "message" : "În tranzit către %system [%x,%y,%z]"
-   },
    "JOY" : {
       "description" : "Short for Joystick",
       "message" : "Joy"
@@ -666,10 +654,6 @@
    "JOY_AXIS" : {
       "description" : "Regarding joystick",
       "message" : "%{sign}%joyname Axa %axis"
-   },
-   "JUMP_COMPLETE" : {
-      "description" : "",
-      "message" : "Salt complet: %percent%%"
    },
    "L4L5_DISPLAY_MODE_TOGGLE" : {
       "description" : "Either show L4/L5 points or don't",
@@ -1213,7 +1197,7 @@
    },
    "RADAR_CONTROL" : {
       "description" : "",
-      "message" : "Radar control"
+      "message" : "Control radar"
    },
    "RADIOACTIVES" : {
       "description" : "",
@@ -1605,7 +1589,7 @@
    },
    "SWAP_SELECTED_HYPERSPACE_TARGET" : {
       "description" : "",
-      "message" : "Swap selected and hyperjump target"
+      "message" : "Comută între ţinta saltului și cea selectată"
    },
    "SWITCHED_TO_PARENT" : {
       "description" : "Show ship's heading, coordinates are on the celestial sphere (defined by the ecliptic).",
@@ -1709,11 +1693,11 @@
    },
    "TOGGLE_RADAR_MODE" : {
       "description" : "",
-      "message" : "Toggle radar mode"
+      "message" : "Comută mod radar"
    },
    "TOGGLE_RADAR_VIEW" : {
       "description" : "Tooltip for the Radar View button",
-      "message" : "Radar View"
+      "message" : "Vizualizare radar"
    },
    "TOGGLE_ROTATION_DAMPING" : {
       "description" : "",
@@ -1794,6 +1778,10 @@
    "UNIT_SECONDS" : {
       "description" : "Duration unit: one second",
       "message" : "s"
+   },
+   "UNIT_TONNES" : {
+      "description" : "Mass unit: one tonne (t)",
+      "message" : "t"
    },
    "UNIT_WEEKS" : {
       "description" : "Duration unit: one 7-day week",

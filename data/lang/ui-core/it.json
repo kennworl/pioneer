@@ -327,6 +327,10 @@
       "description" : "",
       "message" : "Errore"
    },
+   "ERROR_LANDING_GEAR_DOWN" : {
+      "description" : "",
+      "message" : "Impossibile iniziare l'ipersalto; il carrello non è rientrato!"
+   },
    "ESCAPE_SPEED" : {
       "description" : "",
       "message" : "Velocità di fuga:"
@@ -513,11 +517,11 @@
    },
    "HUD_BUTTON_INITIATE_HYPERJUMP" : {
       "description" : "Tooltip: Initiate legal hyperjump",
-      "message" : "Inizio salto iperspaziale"
+      "message" : "Inizio ipersalto"
    },
    "HUD_BUTTON_INITIATE_ILLEGAL_HYPERJUMP" : {
       "description" : "Tooltip: Initiate illegal hyperjump",
-      "message" : "Inizio salto spaziale illegale"
+      "message" : "Inizio ipersalto illegale"
    },
    "HUD_BUTTON_INTERNAL_VIEW" : {
       "description" : "Tooltip: Internal camera view",
@@ -595,6 +599,10 @@
       "description" : "Tooltip: Undock",
       "message" : "Sganciamento"
    },
+   "HUD_CARGO_MASS" : {
+      "description" : "Cargo Mass",
+      "message" : "Massa del Carico"
+   },
    "HUD_CURRENT_COMBAT_TARGET" : {
       "description" : "Tooltip: The current combat target.",
       "message" : "Bersaglio selezionato"
@@ -659,6 +667,10 @@
       "description" : "Tooltip: Hull Temperature.",
       "message" : "Temperatura Scafo"
    },
+   "HUD_HYPERSPACING_TO_N_IN_N_SECONDS" : {
+      "description" : "",
+      "message" : "Iperspazio verso {destination} tra {countdown} secondi"
+   },
    "HUD_INDICATOR_AWAY_FROM_FRAME" : {
       "description" : "Indicator: Away from the current frame.",
       "message" : "Vettore d'uscita dall'attuale sistema di riferimento"
@@ -690,6 +702,18 @@
    "HUD_INDICATOR_NAV_TARGET_RETROGRADE" : {
       "description" : "Indicator: Retrograde direction relative to the current navigational target.",
       "message" : "Retrograda relativa all'attuale obiettivo di navigazione"
+   },
+   "HUD_IN_TRANSIT_TO_N_X_X_X" : {
+      "description" : "",
+      "message" : "In transizione per {system} [{x},{y},{z}]"
+   },
+   "HUD_JUMP_COMPLETE" : {
+      "description" : "",
+      "message" : "Completamento salto: {percent}%"
+   },
+   "HUD_MASS" : {
+      "description" : "Mass",
+      "message" : "Massa"
    },
    "HUD_RADAR_DISTANCE" : {
       "description" : "Tooltip: Current distance of the radar.",
@@ -727,6 +751,10 @@
       "description" : "Tooltip: The speed relative to the target.",
       "message" : "La velocità relativa all'obiettivo"
    },
+   "HUD_THRUST_INDICATOR" : {
+      "description" : "Tooltip: describe what the thrust/velocity indicator shows",
+      "message" : "Mostra per ogni direzione l'attuale velocità (linee sottili) e spinta (sfondo grosso)"
+   },
    "HULL_DOES_NOT_REQUIRE_REPAIR" : {
       "description" : "",
       "message" : "Lo scafo non necessità di riparazione."
@@ -757,7 +785,7 @@
    },
    "ILLEGAL_JUMP" : {
       "description" : "A finable crime",
-      "message" : "Salto pericoloso illegale registrato"
+      "message" : "Ipersalto pericoloso registrato"
    },
    "IM_TIRED_OF_WORKING_FOR_NOTHING_DONT_YOU_KNOW_WHAT_A_CONTRACT_IS" : {
       "description" : "",
@@ -1362,6 +1390,10 @@
    "STATION_MANAGER" : {
       "description" : "",
       "message" : "Amministratore della stazione"
+   },
+   "STATION_ORBIT" : {
+      "description" : "Information shown in the station loby",
+      "message" : "Siamo nell'orbita di {parent_body} con un periodo di rivoluzione di {orbit_peiod} giorni."
    },
    "STATUS" : {
       "description" : "",

@@ -161,6 +161,13 @@ static int l_body_is_missile(lua_State *l)
 		return 1;
 }
 
+static int l_body_is_station(lua_State *l)
+{
+		Body *body = LuaObject<Body>::CheckFromLua(1);
+		LuaPush<bool>(l, body->GetType() == Object::Type::SPACESTATION);
+		return 1;
+}
+
 static int l_body_is_cargo_container(lua_State *l)
 {
 		Body *body = LuaObject<Body>::CheckFromLua(1);
@@ -705,6 +712,13 @@ static int l_body_get_atmospheric_state(lua_State *l) {
 	}
 }
 
+static int l_body_get_label(lua_State *l)
+{
+	Body *b = LuaObject<Body>::CheckFromLua(1);
+	LuaPush(l, b->GetLabel());
+	return 1;
+}
+
 static int l_body_get_target_indicator_screen_position(lua_State *l)
 {
 	Body *b = LuaObject<Body>::CheckFromLua(1);
@@ -757,6 +771,9 @@ static bool _body_deserializer(const char *pos, const char **next)
 	case Object::MISSILE:
 		LuaObject<Missile>::PushToLua(dynamic_cast<Missile*>(body));
 		break;
+	case Object::HYPERSPACECLOUD:
+		LuaObject<HyperspaceCloud>::PushToLua(dynamic_cast<HyperspaceCloud*>(body));
+		break;
 	default:
 		return false;
 	}
@@ -782,12 +799,14 @@ template <> void LuaObject<Body>::RegisterClass()
 		{ "GetTargetIndicatorScreenPosition", l_body_get_target_indicator_screen_position },
 		{ "GetPhysicalRadius",   l_body_get_phys_radius },
 		{ "GetAtmosphericState", l_body_get_atmospheric_state },
+		{ "GetLabel",            l_body_get_label },
 		{ "IsMoreImportantThan", l_body_is_more_important_than },
 		{ "IsMoon",              l_body_is_moon },
 		{ "IsPlanet",            l_body_is_planet },
 		{ "IsShip",              l_body_is_ship },
 		{ "IsHyperspaceCloud",   l_body_is_hyperspace_cloud },
 		{ "IsMissile",           l_body_is_missile },
+		{ "IsStation",           l_body_is_station },
 		{ "IsCargoContainer",    l_body_is_cargo_container },
 		{ "GetSystemBody",       l_body_get_system_body },
 		{ 0, 0 }
@@ -816,4 +835,5 @@ template <> void LuaObject<Body>::RegisterClass()
 	LuaObjectBase::RegisterSerializer("Star",         SerializerPair(_body_serializer, _body_deserializer));
 	LuaObjectBase::RegisterSerializer("CargoBody",    SerializerPair(_body_serializer, _body_deserializer));
 	LuaObjectBase::RegisterSerializer("Missile",      SerializerPair(_body_serializer, _body_deserializer));
+	LuaObjectBase::RegisterSerializer("HyperspaceCloud",      SerializerPair(_body_serializer, _body_deserializer));
 }

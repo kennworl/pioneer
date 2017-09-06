@@ -327,6 +327,10 @@
       "description" : "",
       "message" : "Hiba"
    },
+   "ERROR_LANDING_GEAR_DOWN" : {
+      "description" : "",
+      "message" : "Hiperűr-ugrás nem lehetséges kiengedett futóművel!"
+   },
    "ESCAPE_SPEED" : {
       "description" : "",
       "message" : "Szökési sebesség:"
@@ -595,6 +599,10 @@
       "description" : "Tooltip: Undock",
       "message" : "Dokk elhagyása"
    },
+   "HUD_CARGO_MASS" : {
+      "description" : "Cargo Mass",
+      "message" : "Rakomány tömeg"
+   },
    "HUD_CURRENT_COMBAT_TARGET" : {
       "description" : "Tooltip: The current combat target.",
       "message" : "Harci célpont"
@@ -659,6 +667,10 @@
       "description" : "Tooltip: Hull Temperature.",
       "message" : "Hajótest hőmérséklete"
    },
+   "HUD_HYPERSPACING_TO_N_IN_N_SECONDS" : {
+      "description" : "",
+      "message" : "Hiperűrugrás {destination} rendszerbe: {countdown}"
+   },
    "HUD_INDICATOR_AWAY_FROM_FRAME" : {
       "description" : "Indicator: Away from the current frame.",
       "message" : "A jelenlegi referenciaobjektumtól \"el\" vektor"
@@ -690,6 +702,18 @@
    "HUD_INDICATOR_NAV_TARGET_RETROGRADE" : {
       "description" : "Indicator: Retrograde direction relative to the current navigational target.",
       "message" : "Retrográd a referenciaobjektumhoz viszonyítva"
+   },
+   "HUD_IN_TRANSIT_TO_N_X_X_X" : {
+      "description" : "",
+      "message" : "Úton  {system} [{x},{y},{z}] felé."
+   },
+   "HUD_JUMP_COMPLETE" : {
+      "description" : "",
+      "message" : "Ugrás:  {percent}%"
+   },
+   "HUD_MASS" : {
+      "description" : "Mass",
+      "message" : "Tömeg"
    },
    "HUD_RADAR_DISTANCE" : {
       "description" : "Tooltip: Current distance of the radar.",
@@ -726,6 +750,10 @@
    "HUD_SPEED_RELATIVE_TO_TARGET" : {
       "description" : "Tooltip: The speed relative to the target.",
       "message" : "Sebesség a célponthoz képest"
+   },
+   "HUD_THRUST_INDICATOR" : {
+      "description" : "Tooltip: describe what the thrust/velocity indicator shows",
+      "message" : "Mutatja a sebesség arányát mindhárom tengelyen (vékony vonat) és a tolóerőt (vastag háttér)."
    },
    "HULL_DOES_NOT_REQUIRE_REPAIR" : {
       "description" : "",
@@ -1362,6 +1390,10 @@
    "STATION_MANAGER" : {
       "description" : "",
       "message" : "Diszpécser"
+   },
+   "STATION_ORBIT" : {
+      "description" : "Information shown in the station loby",
+      "message" : " {orbit_period} napos periódusú pályán keringünk  orbit {parent_body} körül."
    },
    "STATUS" : {
       "description" : "",

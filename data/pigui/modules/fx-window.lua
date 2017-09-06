@@ -14,7 +14,7 @@ local player = nil
 local colors = ui.theme.colors
 local icons = ui.theme.icons
 
-local mainButtonSize = Vector(32,32)
+local mainButtonSize = Vector(32,32) * (ui.screenHeight / 1200)
 local mainButtonFramePadding = 3
 local function mainMenuButton(icon, selected, tooltip, color)
 	if color == nil then
@@ -24,46 +24,6 @@ local function mainMenuButton(icon, selected, tooltip, color)
 end
 
 local currentView = "internal"
-
-local function button_hyperspace()
-	local disabled = false
-	local shown = true
-	local legal = player:IsHyperjumpAllowed()
-	local abort = false
-	local targetpath = player:GetHyperspaceTarget()
-	local target = targetpath and targetpath:GetStarSystem()
-	if player:CanHyperjumpTo(targetpath) then
-		if player:IsDocked() or player:IsLanded() then
-			disabled = true
-		elseif player:IsHyperspaceActive() then
-			abort = true
-		end
-	else
-		shown = false
-	end
-
-
-	if shown then
-		ui.sameLine()
-		if disabled then
-			mainMenuButton(icons.hyperspace, false, lui.HUD_BUTTON_HYPERDRIVE_DISABLED, colors.grey)
-		else
-			local icon = icons.hyperspace_off
-			local tooltip = lui.HUD_BUTTON_INITIATE_ILLEGAL_HYPERJUMP
-			if legal then
-				icon = icons.hyperspace
-				tooltip = lui.HUD_BUTTON_INITIATE_HYPERJUMP
-			end
-			if mainMenuButton(icon, false, tooltip) or ui.isKeyReleased(ui.keys.f7)  then
-				if player:IsHyperspaceActive() then
-					player:AbortHyperjump()
-				else
-					player:HyperjumpTo(player:GetHyperspaceTarget())
-				end
-			end
-		end
-	end
-end
 
 local next_cam_type = { ["internal"] = "external", ["external"] = "sidereal", ["sidereal"] = "internal" }
 local cam_tooltip = { ["internal"] = lui.HUD_BUTTON_INTERNAL_VIEW, ["external"] = lui.HUD_BUTTON_EXTERNAL_VIEW, ["sidereal"] = lui.HUD_BUTTON_SIDEREAL_VIEW }
@@ -117,15 +77,16 @@ local function buttons_map(current_view)
 			current_map_view = "system_info"
 		end
 	end
-
-	ui.sameLine()
-	active = current_view == "galaxy"
-	if mainMenuButton(icons.galaxy_map, active, active and lui.HUD_BUTTON_SWITCH_TO_WORLD_VIEW or lui.HUD_BUTTON_SWITCH_TO_GALAXY_MAP) or (onmap and ui.noModifierHeld() and ui.isKeyReleased(ui.keys.f8)) then
-		if active then
-			Game.SetView("world")
-		else
-			Game.SetView("galaxy")
-			current_map_view = "galaxy"
+	if onmap then
+		ui.sameLine()
+		active = current_view == "galaxy"
+		if mainMenuButton(icons.galaxy_map, active, active and lui.HUD_BUTTON_SWITCH_TO_WORLD_VIEW or lui.HUD_BUTTON_SWITCH_TO_GALAXY_MAP) or (onmap and ui.noModifierHeld() and ui.isKeyReleased(ui.keys.f8)) then
+			if active then
+				Game.SetView("world")
+			else
+				Game.SetView("galaxy")
+				current_map_view = "galaxy"
+			end
 		end
 	end
 	if ui.noModifierHeld() and ui.isKeyReleased(ui.keys.f2) then
@@ -163,6 +124,7 @@ local function button_comms(current_view)
 	end
 end
 
+<<<<<<< HEAD
 local function button_undock()
 	if player:IsLanded() then
 		ui.sameLine()
@@ -284,11 +246,12 @@ local function button_flight_control()
 	end
 end
 
-
 local function displayFxWindow()
 	player = Game.player
 	local current_view = Game.CurrentView()
-	ui.setNextWindowPos(Vector(ui.screenWidth/2 - (mainButtonSize.x + 2 * mainButtonFramePadding) * 6, 0) , "FirstUseEver")
+	local buttons = 7
+	ui.setNextWindowSize(Vector((mainButtonSize.x + mainButtonFramePadding * 2) * 9, (mainButtonSize.y + mainButtonFramePadding * 2) * 1.5), "Always")
+	ui.setNextWindowPos(Vector(ui.screenWidth/2 - (mainButtonSize.x + 4 * mainButtonFramePadding) * buttons/2, 0) , "Always")
 	ui.window("Fx", {"NoTitleBar", "NoResize", "NoFocusOnAppearing", "NoBringToFrontOnFocus"},
 						function()
 							button_world(current_view)
@@ -298,25 +261,6 @@ local function displayFxWindow()
 							button_comms(current_view)
 
 							buttons_map(current_view)
-
-							if current_view == "world" then
-								button_hyperspace()
-
-								button_undock()
-
-								button_wheelstate()
-
-								button_rotation_damping()
-
-								button_mfd()
-
-								button_flight_control()
-
-								if ui.noModifierHeld() and ui.isKeyReleased(ui.keys.f8) then
-									Game.ToggleLowThrustPowerOptions()
-								end
-
-							end -- current_view == "world"
 	end)
 end
 

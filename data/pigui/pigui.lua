@@ -95,6 +95,14 @@ function ui.withStyleColors(styles, fun)
 	pigui.PopStyleColor(utils.count(styles))
 end
 
+function ui.withStyleVars(vars, fun)
+	for k,v in pairs(vars) do
+		pigui.PushStyleVar(k, v)
+	end
+	fun()
+	pigui.PopStyleVar(utils.count(vars))
+end
+
 pigui.handlers.INIT = function(progress)
 	if pigui.handlers and pigui.handlers.init then
 		pigui.handlers.init(progress)
@@ -119,6 +127,14 @@ local function get_icon_tex_coords(icon)
 	local rem = math.floor(icon % count)
 	local quot = math.floor(icon / count)
 	return Vector(rem / count, quot/count), Vector((rem+1) / count, (quot+1)/count)
+end
+
+local function get_wide_icon_tex_coords(icon)
+	assert(icon, "no icon given")
+	local count = 16.0 -- icons per row/column
+	local rem = math.floor(icon % count)
+	local quot = math.floor(icon / count)
+	return Vector(rem / count, quot/count), Vector((rem+2) / count, (quot+1)/count)
 end
 
 ui.registerHandler = function(name, fun)
@@ -256,6 +272,10 @@ ui.Format = {
 		return string.format("%0.2f", distance / 1000 / 1000), lc.UNIT_MILLION_METERS_PER_SECOND
 		-- no need for au/s
 	end,
+  Datetime = function(date)
+		local second, minute, hour, day, month, year = Game.GetPartsFromDateTime(date)
+		return string.format("%4i-%02i-%02i %02i:%02i:%02i", year, month, day, hour, minute, second)
+  end
 }
 
 ui.pointOnClock = function(center, radius, hours)
@@ -310,6 +330,28 @@ ui.addIcon = function(position, icon, color, size, anchor_horizontal, anchor_ver
 	return Vector(size, size)
 end
 
+ui.addWideIcon = function(position, icon, color, size, anchor_horizontal, anchor_vertical, tooltip, angle_rad)
+	local pos = ui.calcTextAlignment(position, Vector(size, size), anchor_horizontal, anchor_vertical)
+	local uv0, uv1 = get_wide_icon_tex_coords(icon)
+	if angle_rad then
+	  local center = (pos + pos + Vector(size,size)) / 2
+	  local up_left = Vector(-size/2, size/2):rotate2d(angle_rad)
+	  local up_right = up_left:right()
+	  local down_left = up_left:left()
+	  local down_right = -up_left
+	  pigui.AddImageQuad(ui.icons_texture, center + up_left, center + up_right, center + down_right, center + down_left, uv0, Vector(uv1.x, uv0.y), uv1, Vector(uv0.x, uv1.y), color)
+	else
+	  pigui.AddImage(ui.icons_texture, pos, pos + Vector(size, size), uv0, uv1, color)
+	end
+	if tooltip and (pigui.IsMouseHoveringWindow() or not pigui.IsMouseHoveringAnyWindow()) and tooltip ~= "" then
+	  if pigui.IsMouseHoveringRect(pos, pos + size, true) then
+			maybeSetTooltip(tooltip)
+	  end
+	end
+
+	return Vector(size, size)
+end
+
 ui.addFancyText = function(position, anchor_horizontal, anchor_vertical, data, bg_color)
 	-- always align texts at baseline
 	local spacing = 2
@@ -343,7 +385,7 @@ ui.addFancyText = function(position, anchor_horizontal, anchor_vertical, data, b
 	size.x = size.x - spacing -- remove last spacing
 	position = ui.calcTextAlignment(position, size, anchor_horizontal, nil)
 	if anchor_vertical == ui.anchor.top then
-	  position.y = position.y + max_offset
+	  position.y = position.y + size.y -- was max_offset, seems wrong
 	elseif anchor_vertical == ui.anchor.bottom then
 	  position.y = position.y - (size.y - max_offset)
 	end
@@ -412,6 +454,11 @@ ui.setNextWindowSize = pigui.SetNextWindowSize
 ui.dummy = pigui.Dummy
 ui.sameLine = pigui.SameLine
 ui.text = pigui.Text
+ui.textWrapped = pigui.TextWrapped
+ui.textColored = pigui.TextColored
+ui.pushTextWrapPos = pigui.PushTextWrapPos
+ui.popTextWrapPos = pigui.PopTextWrapPos
+ui.setScrollHere = pigui.SetScrollHere
 ui.selectable = pigui.Selectable
 ui.progressBar = pigui.ProgressBar
 ui.calcTextSize = pigui.CalcTextSize
@@ -420,6 +467,7 @@ ui.addCircleFilled = pigui.AddCircleFilled
 ui.addRect = pigui.AddRect
 ui.addRectFilled = pigui.AddRectFilled
 ui.addLine = pigui.AddLine
+ui.addText = pigui.AddText
 ui.pathArcTo = pigui.PathArcTo
 ui.pathStroke = pigui.PathStroke
 ui.twoPi = two_pi
@@ -433,8 +481,13 @@ ui.imageButton = function(icon, size, frame_padding, bg_color, tint_color, toolt
 	pigui.PopID()
 	return res
 end
+ui.setCursorPos = pigui.SetCursorPos
+ui.getCursorPos = pigui.GetCursorPos
+ui.lowThrustButton = pigui.LowThrustButton
+ui.thrustIndicator = pigui.ThrustIndicator
 ui.oneOverSqrtTwo = one_over_sqrt_two
 ui.isMouseClicked = pigui.IsMouseClicked
+ui.isMouseDown = pigui.IsMouseDown
 ui.getMousePos = pigui.GetMousePos
 ui.getMouseWheel = pigui.GetMouseWheel
 ui.setTooltip = maybeSetTooltip
@@ -447,15 +500,18 @@ ui.isMouseHoveringRect = pigui.IsMouseHoveringRect
 ui.isMouseHoveringAnyWindow = pigui.IsMouseHoveringAnyWindow
 ui.openPopup = pigui.OpenPopup
 ui.shouldShowLabels = pigui.ShouldShowLabels
+ui.columns = pigui.Columns
+ui.nextColumn = pigui.NextColumn
 ui.keys = pigui.keys
 ui.systemInfoViewNextPage = pigui.SystemInfoViewNextPage -- deprecated
 ui.isKeyReleased = pigui.IsKeyReleased
 ui.playSfx = pigui.PlaySfx
+ui.isItemHovered = pigui.IsItemHovered
 ui.ctrlHeld = function() return pigui.key_ctrl end
 ui.altHeld = function() return pigui.key_alt end
 ui.shiftHeld = function() return pigui.key_shift end
 ui.noModifierHeld = function() return pigui.key_none end
-ui.coloredSelectedIconButton = function(icon, size, is_selected, frame_padding, bg_color, fg_color, tooltip)
+ui.coloredSelectedIconButton = function(icon, thesize, is_selected, frame_padding, bg_color, fg_color, tooltip)
 	if is_selected then
 		pigui.PushStyleColor("Button", bg_color)
 		pigui.PushStyleColor("ButtonHovered", bg_color:tint(0.1))
@@ -467,7 +523,7 @@ ui.coloredSelectedIconButton = function(icon, size, is_selected, frame_padding, 
 	end
 	local uv0,uv1 = get_icon_tex_coords(icon)
 	pigui.PushID(tooltip)
-	local res = pigui.ImageButton(ui.icons_texture, size, uv0, uv1, frame_padding, ui.theme.colors.lightBlueBackground, fg_color)
+	local res = pigui.ImageButton(ui.icons_texture, thesize, uv0, uv1, frame_padding, ui.theme.colors.lightBlueBackground, fg_color)
 	pigui.PopID()
 	pigui.PopStyleColor(3)
 	if pigui.IsItemHovered() then
@@ -492,7 +548,7 @@ ui.gauge = function(position, value, unit, format, minimum, maximum, icon, color
 									ui.addStyledText(uiPos + Vector(0, ui.gauge_height / 12), ui.anchor.right, ui.anchor.center, string.format("%i", percent * 100), ui.theme.colors.reticuleCircle, ui.fonts.pionillium.medium, tooltip)
 								end
 								uiPos = uiPos + Vector(ui.gauge_height * 1.2, 0)
-								ui.addIcon(uiPos - ui.gauge_height/2, icon, ui.theme.colors.reticuleCircle, ui.gauge_height, ui.anchor.center, ui.anchor.top, tooltip)
+								ui.addIcon(uiPos - Vector(ui.gauge_height/2, 0), icon, ui.theme.colors.reticuleCircle, ui.gauge_height * 0.9, ui.anchor.center, ui.anchor.center, tooltip)
 								local w = (position.x + ui.gauge_width) - uiPos.x
 								ui.addLine(uiPos, uiPos + Vector(w * percent, 0), color, ui.gauge_height)
 								if value and format then

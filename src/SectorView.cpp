@@ -1,4 +1,4 @@
-// Copyright © 2008-2017 Pioneer Developers. See AUTHORS.txt for details
+﻿// Copyright © 2008-2017 Pioneer Developers. See AUTHORS.txt for details
 // Licensed under the terms of the GPL v3. See licenses/GPL-3.txt
 
 #include "libs.h"
@@ -33,7 +33,7 @@ static const int DRAW_RAD = 5;
 #define OUTER_RADIUS (Sector::SIZE*float(DRAW_RAD))
 static const float FAR_THRESHOLD = 7.5f;
 static const float FAR_LIMIT     = 36.f;
-static const float FAR_MAX       = 46.f;
+static const float FAR_MAX       = 56.f;
 
 enum DetailSelection {
 	DETAILBOX_NONE    = 0

@@ -257,6 +257,7 @@
       <PreprocessorDefinitions>GLEW_NO_GLU;GLEW_STATIC;_SCL_SECURE_NO_WARNINGS;HAVE_M_PI;WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <MinimalRebuild>false</MinimalRebuild>
+      <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
     </ClCompile>
     <PostBuildEvent>
       <Command>xcopy "..\..\..\pioneer-thirdparty\win32\bin\x64\vs2015\*.dll" "$(TargetDir)\*.dll" /Y /C</Command>
@@ -356,6 +357,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <OmitFramePointers>true</OmitFramePointers>
       <MinimalRebuild>false</MinimalRebuild>
+      <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
     </ClCompile>
     <PostBuildEvent>
       <Command>xcopy "..\..\..\pioneer-thirdparty\win32\bin\x64\vs2015\*.dll" "$(TargetDir)\*.dll" /Y /C</Command>
@@ -367,6 +369,7 @@
     <ClCompile Include="..\..\contrib\imgui\examples\sdl_opengl3_example\imgui_impl_sdl_gl3.cpp" />
     <ClCompile Include="..\..\contrib\imgui\imgui.cpp" />
     <ClCompile Include="..\..\contrib\imgui\imgui_draw.cpp" />
+<<<<<<< HEAD
     <ClCompile Include="..\..\contrib\PicoDDS\PicoDDS.cpp">
       <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
     </ClCompile>
@@ -595,6 +598,84 @@
     <ClCompile Include="..\..\src\LuaSpaceStation.cpp">
       <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
     </ClCompile>
+=======
+    <ClCompile Include="..\..\contrib\PicoDDS\PicoDDS.cpp" />
+    <ClCompile Include="..\..\src\AmbientSounds.cpp" />
+    <ClCompile Include="..\..\src\Background.cpp" />
+    <ClCompile Include="..\..\src\BaseSphere.cpp" />
+    <ClCompile Include="..\..\src\Body.cpp" />
+    <ClCompile Include="..\..\src\Camera.cpp" />
+    <ClCompile Include="..\..\src\CameraController.cpp" />
+    <ClCompile Include="..\..\src\CargoBody.cpp" />
+    <ClCompile Include="..\..\src\CityOnPlanet.cpp" />
+    <ClCompile Include="..\..\src\CollMesh.cpp" />
+    <ClCompile Include="..\..\src\Color.cpp" />
+    <ClCompile Include="..\..\src\CRC32.cpp" />
+    <ClCompile Include="..\..\src\DateTime.cpp" />
+    <ClCompile Include="..\..\src\DeathView.cpp" />
+    <ClCompile Include="..\..\src\DynamicBody.cpp" />
+    <ClCompile Include="..\..\src\EnumStrings.cpp" />
+    <ClCompile Include="..\..\src\enum_table.cpp" />
+    <ClCompile Include="..\..\src\FaceParts.cpp" />
+    <ClCompile Include="..\..\src\Factions.cpp" />
+    <ClCompile Include="..\..\src\FileSourceZip.cpp" />
+    <ClCompile Include="..\..\src\FileSystem.cpp" />
+    <ClCompile Include="..\..\src\FixedGuns.cpp" />
+    <ClCompile Include="..\..\src\FontCache.cpp" />
+    <ClCompile Include="..\..\src\Frame.cpp" />
+    <ClCompile Include="..\..\src\Game.cpp" />
+    <ClCompile Include="..\..\src\GameConfig.cpp" />
+    <ClCompile Include="..\..\src\GameLog.cpp" />
+    <ClCompile Include="..\..\src\GasGiant.cpp" />
+    <ClCompile Include="..\..\src\GasGiantJobs.cpp" />
+    <ClCompile Include="..\..\src\GeoPatch.cpp" />
+    <ClCompile Include="..\..\src\GeoPatchContext.cpp" />
+    <ClCompile Include="..\..\src\GeoPatchID.cpp" />
+    <ClCompile Include="..\..\src\GeoPatchJobs.cpp" />
+    <ClCompile Include="..\..\src\GeoSphere.cpp" />
+    <ClCompile Include="..\..\src\HudTrail.cpp" />
+    <ClCompile Include="..\..\src\HyperspaceCloud.cpp" />
+    <ClCompile Include="..\..\src\IniConfig.cpp" />
+    <ClCompile Include="..\..\src\Intro.cpp" />
+    <ClCompile Include="..\..\src\JobQueue.cpp" />
+    <ClCompile Include="..\..\src\KeyBindings.cpp" />
+    <ClCompile Include="..\..\src\Lang.cpp" />
+    <ClCompile Include="..\..\src\Lua.cpp" />
+    <ClCompile Include="..\..\src\LuaBody.cpp" />
+    <ClCompile Include="..\..\src\LuaCargoBody.cpp" />
+    <ClCompile Include="..\..\src\LuaComms.cpp" />
+    <ClCompile Include="..\..\src\LuaConsole.cpp" />
+    <ClCompile Include="..\..\src\LuaConstants.cpp" />
+    <ClCompile Include="..\..\src\LuaDev.cpp" />
+    <ClCompile Include="..\..\src\LuaEngine.cpp" />
+    <ClCompile Include="..\..\src\LuaEvent.cpp" />
+    <ClCompile Include="..\..\src\LuaFaction.cpp" />
+    <ClCompile Include="..\..\src\LuaFileSystem.cpp" />
+    <ClCompile Include="..\..\src\LuaFixed.cpp" />
+    <ClCompile Include="..\..\src\LuaFormat.cpp" />
+    <ClCompile Include="..\..\src\LuaGame.cpp" />
+    <ClCompile Include="..\..\src\LuaHyperspaceCloud.cpp" />
+    <ClCompile Include="..\..\src\LuaLang.cpp" />
+    <ClCompile Include="..\..\src\LuaManager.cpp" />
+    <ClCompile Include="..\..\src\LuaMatrix.cpp" />
+    <ClCompile Include="..\..\src\LuaMissile.cpp" />
+    <ClCompile Include="..\..\src\LuaModelBody.cpp" />
+    <ClCompile Include="..\..\src\LuaMusic.cpp" />
+    <ClCompile Include="..\..\src\LuaNameGen.cpp" />
+    <ClCompile Include="..\..\src\LuaObject.cpp" />
+    <ClCompile Include="..\..\src\LuaPiGui.cpp" />
+    <ClCompile Include="..\..\src\LuaPlanet.cpp" />
+    <ClCompile Include="..\..\src\LuaPlayer.cpp" />
+    <ClCompile Include="..\..\src\LuaPropertiedObject.cpp" />
+    <ClCompile Include="..\..\src\LuaRand.cpp" />
+    <ClCompile Include="..\..\src\LuaRef.cpp" />
+    <ClCompile Include="..\..\src\LuaSerializer.cpp" />
+    <ClCompile Include="..\..\src\LuaServerAgent.cpp" />
+    <ClCompile Include="..\..\src\LuaShip.cpp" />
+    <ClCompile Include="..\..\src\LuaShipDef.cpp" />
+    <ClCompile Include="..\..\src\LuaSpace.cpp" />
+    <ClCompile Include="..\..\src\LuaSpaceStation.cpp" />
+>>>>>>> ab51dca405c9dd7b493047f9301cf30058e93d48
     <ClCompile Include="..\..\src\LuaStar.cpp" />
     <ClCompile Include="..\..\src\LuaStarSystem.cpp">
       <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>

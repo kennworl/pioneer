@@ -19,6 +19,18 @@
       "description" : "",
       "message" : "Yasa dışı kargo tespit edilmedi. Devam edebilirsiniz."
    },
+   "OUTLAW_DETECTED_1" : {
+      "description" : "",
+      "message" : "{ship_label} bilinen bir kanun kaçağı tarafından kullanılıyor. Saldır ve yok et!"
+   },
+   "OUTLAW_DETECTED_2" : {
+      "description" : "",
+      "message" : "Haydut, günlerin sayılı!"
+   },
+   "OUTLAW_DETECTED_3" : {
+      "description" : "",
+      "message" : "Hah, yakaladım! Bu sistemden canlı çıkmayacaksın!"
+   },
    "POLICE_TAUNT_1" : {
       "description" : "",
       "message" : "Dostum, bu kötü bir fikirdi."

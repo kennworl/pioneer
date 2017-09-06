@@ -327,6 +327,10 @@
       "description" : "",
       "message" : "Error"
    },
+   "ERROR_LANDING_GEAR_DOWN" : {
+      "description" : "",
+      "message" : "No puede iniciarse el hipersalto; ¡el tren de aterrizaje no está replegado!"
+   },
    "ESCAPE_SPEED" : {
       "description" : "",
       "message" : "Velocidad de escape:"
@@ -595,6 +599,10 @@
       "description" : "Tooltip: Undock",
       "message" : "Desacoplar"
    },
+   "HUD_CARGO_MASS" : {
+      "description" : "Cargo Mass",
+      "message" : "Masa de Carga"
+   },
    "HUD_CURRENT_COMBAT_TARGET" : {
       "description" : "Tooltip: The current combat target.",
       "message" : "El actual objetivo de combate"
@@ -659,6 +667,10 @@
       "description" : "Tooltip: Hull Temperature.",
       "message" : "Temperatura del Casco"
    },
+   "HUD_HYPERSPACING_TO_N_IN_N_SECONDS" : {
+      "description" : "",
+      "message" : "Hipersalto a {destination} en {countdown} segundos"
+   },
    "HUD_INDICATOR_AWAY_FROM_FRAME" : {
       "description" : "Indicator: Away from the current frame.",
       "message" : "fuera del marco actual"
@@ -690,6 +702,18 @@
    "HUD_INDICATOR_NAV_TARGET_RETROGRADE" : {
       "description" : "Indicator: Retrograde direction relative to the current navigational target.",
       "message" : "Retrogrado relativo al actual objetivo de navegación"
+   },
+   "HUD_IN_TRANSIT_TO_N_X_X_X" : {
+      "description" : "",
+      "message" : "En tránsito a {system} [{x},{y},{z}]"
+   },
+   "HUD_JUMP_COMPLETE" : {
+      "description" : "",
+      "message" : "Salto completado: {percent}%"
+   },
+   "HUD_MASS" : {
+      "description" : "Mass",
+      "message" : "Masa"
    },
    "HUD_RADAR_DISTANCE" : {
       "description" : "Tooltip: Current distance of the radar.",
@@ -726,6 +750,10 @@
    "HUD_SPEED_RELATIVE_TO_TARGET" : {
       "description" : "Tooltip: The speed relative to the target.",
       "message" : "La velocidad relativa al objetivo"
+   },
+   "HUD_THRUST_INDICATOR" : {
+      "description" : "Tooltip: describe what the thrust/velocity indicator shows",
+      "message" : "Muestra la velocidad actual para cada dirección (líneas delgadas) y empuje (fondo espeso)"
    },
    "HULL_DOES_NOT_REQUIRE_REPAIR" : {
       "description" : "",
@@ -1362,6 +1390,10 @@
    "STATION_MANAGER" : {
       "description" : "",
       "message" : "Gerente de la Estación"
+   },
+   "STATION_ORBIT" : {
+      "description" : "Information shown in the station loby",
+      "message" : "Estamos en una órbita periódica diaria de {orbit_period} alrededor de {parent_body}."
    },
    "STATUS" : {
       "description" : "",
