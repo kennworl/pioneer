@@ -268,8 +268,8 @@ local function displayReticulePitchHorizonCompass()
 
 		uiPos = ui.pointOnClock(center, reticuleCircleRadius + 15, 1.3)
 		ui.addStyledText(uiPos, ui.anchor.left, ui.anchor.bottom, math.floor(heading_degrees + 0.5) .. "°", colors.reticuleCircle, pionillium.small, lui.HUD_CURRENT_HEADING)
-	    heading_str = string.format("hd%03d~", math.floor(heading_degrees + 0.5))
-		SerialComms.WriteData(heading_str)
+	    heading_str = string.format("hdg%03d~", math.floor(heading_degrees + 0.5))
+--		SerialComms.WriteData(heading_str)
 
 		uiPos = ui.pointOnClock(center, reticuleCircleRadius + 5, 6)
 		ui.addStyledText(uiPos, ui.anchor.center, ui.anchor.top, math.floor(roll_degrees + 0.5) .. "°", colors.reticuleCircle, pionillium.small, lui.HUD_CURRENT_ROLL)
@@ -342,6 +342,9 @@ local function displayDetailData(target, radius, combatTarget, navTarget, colorL
 	local tooltip = reticuleTarget == "combatTarget" and lui.HUD_CURRENT_COMBAT_TARGET or (reticuleTarget == "navTarget" and lui.HUD_CURRENT_NAV_TARGET or lui.HUD_CURRENT_FRAME)
 	ui.addStyledText(uiPos, ui.anchor.left, ui.anchor.baseline, target.label, colorDark, pionillium.medium, tooltip, colors.lightBlackBackground)
 
+    if reticuleTarget == "frame" then
+	    SerialComms.WriteData(string.format("fml%s~",target.label))
+	end
 	-- current distance, relative speed
 	uiPos = ui.pointOnClock(center, radius, 2.75)
 	-- currently unused: local distance, distance_unit = ui.Format.Distance(player:DistanceTo(target))
@@ -378,6 +381,10 @@ local function displayDetailData(target, radius, combatTarget, navTarget, colorL
 										{ text=speed_unit,    color=colorDark,  font=pionillium.small,  tooltip=lui.HUD_SPEED_RELATIVE_TO_TARGET }},
 									colors.lightBlackBackground)
 
+	if reticuleTarget == "frame" then
+	    SerialComms.WriteData(string.format("fmaDistance: %s %s~",altitude,altitude_unit))
+	end
+	
 	-- current speed of approach
 	if approach_speed < 0 then
 		displayReticuleBrakeGauge(ratio, ratio_retro)
@@ -438,6 +445,7 @@ local function displayFrameData(frame, radius)
 	local uiPos = ui.pointOnClock(center, radius, -2.46)
 	-- label of frame
 	ui.addStyledText(uiPos, ui.anchor.right, ui.anchor.baseline, frame.label, colors.frame, pionillium.medium, lui.HUD_CURRENT_FRAME, colors.lightBlackBackground)
+	SerialComms.WriteData(string.format("fml%s~",frame.label))
 	-- speed of approach of frame
 	uiPos = ui.pointOnClock(center, radius, -2.75)
 	ui.addFancyText(uiPos, ui.anchor.right, ui.anchor.baseline, {
@@ -462,6 +470,9 @@ local function displayFrameData(frame, radius)
 										{ text=' ' .. altitude, color=colors.frame,     font=pionillium.medium, tooltip=lui.HUD_DISTANCE_TO_SURFACE_OF_FRAME },
 										{ text=altitude_unit,   color=colors.frameDark, font=pionillium.small,  tooltip=lui.HUD_DISTANCE_TO_SURFACE_OF_FRAME }},
 									colors.lightBlackBackground)
+	SerialComms.WriteData(string.format("fml%s~",frame.label))
+	SerialComms.WriteData(string.format("fmaDistance: %s %s~",altitude,altitude_unit))
+
 
 end
 
@@ -571,6 +582,7 @@ local function displayReticule()
 	ui.addCircle(center, reticuleCircleRadius, colors.reticuleCircle, ui.circleSegments(reticuleCircleRadius), reticuleCircleThickness)
 
 	local frame = player.frameBody
+
 	local navTarget = player:GetNavTarget()
 	local combatTarget = player:GetCombatTarget()
 	local radius = reticuleCircleRadius * 1.2

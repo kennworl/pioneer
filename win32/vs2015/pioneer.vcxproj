@@ -369,7 +369,6 @@
     <ClCompile Include="..\..\contrib\imgui\examples\sdl_opengl3_example\imgui_impl_sdl_gl3.cpp" />
     <ClCompile Include="..\..\contrib\imgui\imgui.cpp" />
     <ClCompile Include="..\..\contrib\imgui\imgui_draw.cpp" />
-<<<<<<< HEAD
     <ClCompile Include="..\..\contrib\PicoDDS\PicoDDS.cpp">
       <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
     </ClCompile>
@@ -598,7 +597,6 @@
     <ClCompile Include="..\..\src\LuaSpaceStation.cpp">
       <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
     </ClCompile>
-=======
     <ClCompile Include="..\..\contrib\PicoDDS\PicoDDS.cpp" />
     <ClCompile Include="..\..\src\AmbientSounds.cpp" />
     <ClCompile Include="..\..\src\Background.cpp" />
@@ -675,7 +673,6 @@
     <ClCompile Include="..\..\src\LuaShipDef.cpp" />
     <ClCompile Include="..\..\src\LuaSpace.cpp" />
     <ClCompile Include="..\..\src\LuaSpaceStation.cpp" />
->>>>>>> ab51dca405c9dd7b493047f9301cf30058e93d48
     <ClCompile Include="..\..\src\LuaStar.cpp" />
     <ClCompile Include="..\..\src\LuaStarSystem.cpp">
       <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>

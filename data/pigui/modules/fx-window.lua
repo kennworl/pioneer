@@ -124,7 +124,6 @@ local function button_comms(current_view)
 	end
 end
 
-<<<<<<< HEAD
 local function button_undock()
 	if player:IsLanded() then
 		ui.sameLine()

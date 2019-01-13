@@ -11,8 +11,10 @@ namespace LuaSerialComms {
 }
 
 // These are for checking if the output strings to Arduino have changed and should be sent.
-static std::string heading = "";
+static std::string frameHeading = "";
 static std::string landingGear = "";
+static std::string frameLabel = "";
+static std::string frameAltitude = "";
 
 #endif
 

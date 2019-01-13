@@ -47,12 +47,20 @@ static int l_serial_comms_write_data(lua_State *l)
 
 	if (!(!Pi::serialPort || !Pi::serialPort->IsConnected())) {
 		std::string msg = luaL_checkstring(l, 1);
-		if (!writeData && msg[0] == 'h' && msg[1] == 'd' && msg.compare(heading) != 0) {
-			heading.assign(msg);
+		if (!writeData && msg[0] == 'h' && msg[1] == 'd' && msg.compare(frameHeading) != 0) {
+			frameHeading.assign(msg);
 			writeData = true;
 		}
 		if (!writeData && msg[0] == 'l' && msg[1] == 'g' && msg.compare(landingGear) != 0) {
 			landingGear.assign(msg);
+			writeData = true;
+		}
+		if (!writeData && msg[0] == 'f' && msg[1] == 'm' && msg[2] == 'l' && msg.compare(frameLabel) != 0) {
+			frameLabel.assign(msg);
+			writeData = true;
+		}
+		if (!writeData && msg[0] == 'f' && msg[1] == 'm' && msg[2] == 'a' && msg.compare(frameAltitude) != 0) {
+			frameAltitude.assign(msg);
 			writeData = true;
 		}
 		if (writeData && !Pi::serialPort->WriteData(msg.c_str(), msg.length())) {
